@@ -1,0 +1,91 @@
+<!--
+  ~ “The contents of this file are subject to the SpotLink Public License,
+  ~ version 1.0 (the “License”); you may not use this file except in
+  ~ compliance with the License.  You may obtain a copy of the License at
+  ~ http://www.thistech.com/spotlink/spl.
+  ~
+  ~ Software distributed under the License is distributed on an “AS IS”
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.  See
+  ~ the License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ The Original Code is SpotLink Server Code, release date February 14, 2011
+  ~ The Initial Developer of the Original Code is This Technology, LLC.
+  ~ Copyright (C) 2010-2011, This Technology, LLC
+  ~ All Rights Reserved.
+  -->
+
+<adm:PlacementResponse messageRef="8790689a-8902-4df7-8aa4-35c6eee78a93" messageId="e0a9a3e5-cbfc-47bc-b2d6-b61d7cda41bd" version="1.2" identity="matt" system="spotlink" xmlns:core="http://www.scte.org/schemas/130-2/2008a/core" xmlns:adm="http://www.scte.org/schemas/130-3/2008a/adm" xmlns:podm="http://www.scte.org/schemas/130-3/2008a/adm/podm" xmlns:gis="http://www.scte.org/schemas/130-8/2010a/gis" xmlns:cis="http://www.scte.org/schemas/130-4/2008a/cis" xmlns:ns7="http://www.scte.org/schemas/130-6/2010/sis" xmlns:pois="http://www.scte.org/schemas/130-5/2010/pois" xmlns:fw="http://www.freewheel.tv/smartAdRequest">
+ <core:StatusCode class="0" detail="0"/>
+ <adm:SystemContext>
+    <adm:Session>000a73271fc21fe9bfe5</adm:Session>
+ </adm:SystemContext>
+ <adm:Service id="MOD"/>
+ <adm:Entertainment>
+    <core:Content>
+       <core:AssetRef providerID="thistech.com" assetID="THTE2010092799990002"/>
+       <core:Duration>PT48M0.000S</core:Duration>
+    </core:Content>
+ </adm:Entertainment>
+ <adm:Client>
+    <core:CurrentDateTime>2011-02-01T15:54:30.506-08:00</core:CurrentDateTime>
+    <adm:TerminalAddress type="MAC">000A73271FC2</adm:TerminalAddress>
+    <adm:TargetCode key="GUID">ca656f14-d374-11df-97d5-001a6499784c</adm:TargetCode>
+    <adm:TargetCode key="MACAddress">000A73271FC2</adm:TargetCode>
+    <adm:TargetCode key="Zip5">28269</adm:TargetCode>
+    <adm:TargetCode key="LOB_HSD">D</adm:TargetCode>
+    <adm:TargetCode key="AdZone">CLT</adm:TargetCode>
+    <adm:TargetCode key="SchNum">811</adm:TargetCode>
+    <adm:TargetCode key="TitleFull">Chase</adm:TargetCode>
+    <adm:TargetCode key="EpisodeID">103</adm:TargetCode>
+    <adm:TargetCode key="EncodingProfile">MPEG2HD</adm:TargetCode>
+ </adm:Client>
+ <adm:PlacementDecision id="e1a69cf3-7da9-4f92-97de-31927f8412fc" placementOpportunityRef="75332045-79e7-47a9-8578-b53092e3ac21">
+    <adm:Placement id="7baf9951-abb8-4976-9cf8-0285bae1cbae" action="replace" placementControlRef="e79d207f-b84f-479e-bfb8-03b47584ea6a">
+       <core:Content>
+          <core:AssetRef providerID="ads.thistech.com" assetID="THTE2010100500000703"/>
+          <core:Tracking>73c78f76-cb1b-4d67-92d0-de7d280e4d01</core:Tracking>
+       </core:Content>
+    </adm:Placement>
+ </adm:PlacementDecision>
+ <adm:PlacementDecision id="bb401797-941c-4e29-8b0f-38c47b990db3" placementOpportunityRef="880bede2-2eba-41ed-ac2f-fc610ecae6c0">
+    <adm:Placement id="894c1ad3-dfa3-4eab-90d8-b4dbca673e5e" action="replace" placementControlRef="96eb4744-99ab-40d8-bce3-375835aff0c8">
+       <core:Content>
+          <core:AssetRef providerID="ads.thistech.com" assetID="THTE2010100500000782"/>
+          <core:Tracking>65895e82-a1ab-4f7a-8c83-eedaa25c8de9</core:Tracking>
+       </core:Content>
+    </adm:Placement>
+ </adm:PlacementDecision>
+ <adm:PlacementDecision id="d3add120-0f60-4f00-ae65-2b3f882e4cd2" placementOpportunityRef="c8159c5b-6b36-4306-b157-d8a6eff65087">
+    <adm:Placement id="7a278a6c-bd8d-47f1-9ae7-e1af81817cc8" action="replace" placementControlRef="544ff5e9-710a-45af-a209-5fc1efa4b00e">
+       <core:Content>
+          <core:AssetRef providerID="ads.thistech.com" assetID="THTE2010100500000694"/>
+          <core:Tracking>d41aa6a4-81db-4265-b5aa-6d3340429df4</core:Tracking>
+       </core:Content>
+    </adm:Placement>
+ </adm:PlacementDecision>
+ <adm:PlacementDecision id="746d14f1-4d8d-455d-a281-a78654cf17c1" placementOpportunityRef="69e5dcd5-a1ab-4e1d-8b43-7cea2d4040b4">
+    <adm:Placement id="fce8afd0-e609-43b3-921d-176287321a7e" action="replace" placementControlRef="f34dfb59-be7f-4d84-887c-86ccd8377c49">
+       <core:Content>
+          <core:AssetRef providerID="ads.thistech.com" assetID="THTE2010100500000773"/>
+          <core:Tracking>b8680150-e085-4c2d-a323-d63014eedc3c</core:Tracking>
+       </core:Content>
+    </adm:Placement>
+ </adm:PlacementDecision>
+ <adm:PlacementDecision id="4fcefc65-34e5-488b-8cf2-30d88c47392e" placementOpportunityRef="1c63eb99-d249-49aa-9464-710978d68405">
+    <adm:Placement id="c5e900ef-886e-4e44-bfe4-1164a0788a4b" action="replace" placementControlRef="6246c0d2-0d60-4e11-a6a7-0cd60c108eb2">
+       <core:Content>
+          <core:AssetRef providerID="ads.thistech.com" assetID="THTE2010100500000773"/>
+          <core:Tracking>2b159a97-31b0-41d2-aec6-61fc2d54aab7</core:Tracking>
+       </core:Content>
+    </adm:Placement>
+ </adm:PlacementDecision>
+ <adm:PlacementDecision id="e99c13a1-4e33-41de-a7ec-06ff9f76b8ac" placementOpportunityRef="1a4d585d-b513-43e2-9c42-451bfb6d4374">
+    <adm:Placement id="0d544871-fc95-461a-86ae-7567d2243687" action="replace" placementControlRef="07c022a2-db82-415d-9ca7-1769b42009fc">
+       <core:Content>
+          <core:AssetRef providerID="ads.thistech.com" assetID="THTE2010100500000694"/>
+          <core:Tracking>8cfefc19-28cd-405e-83c3-778c5f36ae4f</core:Tracking>
+       </core:Content>
+    </adm:Placement>
+ </adm:PlacementDecision>
+</adm:PlacementResponse>

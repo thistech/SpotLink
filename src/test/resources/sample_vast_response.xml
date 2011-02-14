@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<!--
+  ~ “The contents of this file are subject to the SpotLink Public License,
+  ~ version 1.0 (the “License”); you may not use this file except in
+  ~ compliance with the License.  You may obtain a copy of the License at
+  ~ http://www.thistech.com/spotlink/spl.
+  ~
+  ~ Software distributed under the License is distributed on an “AS IS”
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.  See
+  ~ the License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ The Original Code is SpotLink Server Code, release date February 14, 2011
+  ~ The Initial Developer of the Original Code is This Technology, LLC.
+  ~ Copyright (C) 2010-2011, This Technology, LLC
+  ~ All Rights Reserved.
+  -->
+<VAST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" xsi:noNamespaceSchemaLocation="vast.xsd">
+  <Ad id="333761.46912989252272">
+    <InLine>
+      <AdSystem>FreeWheel</AdSystem>
+      <AdTitle/>
+      <Impression id="FWi_333761.0"><![CDATA[http://g1.v.fwmrm.net/ad/l/1?s=a008&t=12973558686991921&adid=333761&reid=185206&arid=0&auid=&cn=defaultImpression&et=i&_cc=333761,185204,,,1297355868,1&tpos=20&iw=&uxnw=&uxss=&uxct=&init=1&cr=]]></Impression>
+      <Creatives>
+        <Creative AdID="333761">
+          <Linear>
+            <Duration>0:00:30</Duration>
+            <TrackingEvents/>
+            <VideoClicks>
+              <ClickTracking id="FWc_333761.0"><![CDATA[http://g1.v.fwmrm.net/ad/l/1?s=a008&t=12973558686991921&adid=333761&reid=185206&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=20&cr=]]></ClickTracking>
+            </VideoClicks>
+            <MediaFiles>
+              <MediaFile delivery="progressive" height="480" type="null/null" width="528"><![CDATA[http://test.ciscopath.com/UPMGP001H.mpg]]></MediaFile>
+            </MediaFiles>
+          </Linear>
+        </Creative>
+      </Creatives>
+    </InLine>
+  </Ad>
+  <Ad id="333757.46912990570112">
+    <InLine>
+      <AdSystem>FreeWheel</AdSystem>
+      <AdTitle/>
+      <Impression id="FWi_333757.0"><![CDATA[http://g1.v.fwmrm.net/ad/l/1?s=a008&t=12973558686991921&adid=333757&reid=185184&arid=0&auid=&cn=defaultImpression&et=i&_cc=333757,185170,,,1297355868,1&tpos=10&iw=&uxnw=&uxss=&uxct=&init=1&cr=]]></Impression>
+      <Creatives>
+        <Creative AdID="333757">
+          <Linear>
+            <Duration>0:00:30</Duration>
+            <TrackingEvents/>
+            <VideoClicks>
+              <ClickTracking id="FWc_333757.0"><![CDATA[http://g1.v.fwmrm.net/ad/l/1?s=a008&t=12973558686991921&adid=333757&reid=185184&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=10&cr=]]></ClickTracking>
+            </VideoClicks>
+            <MediaFiles>
+              <MediaFile delivery="progressive" height="480" type="null/null" width="528"><![CDATA[http://test.ciscopath.com/UPGGP001H.mpg]]></MediaFile>
+              <MediaFile delivery="progressive" height="1080" type="null/null" width="1920"><![CDATA[http://test.ciscopath.com/HD_UPGGP001H.mpg]]></MediaFile>
+            </MediaFiles>
+          </Linear>
+        </Creative>
+      </Creatives>
+    </InLine>
+  </Ad>
+  <Ad id="333763.46912992156624">
+    <InLine>
+      <AdSystem>FreeWheel</AdSystem>
+      <AdTitle/>
+      <Impression id="FWi_333763.0"><![CDATA[http://g1.v.fwmrm.net/ad/l/1?s=a008&t=12973558686991921&adid=333763&reid=185206&arid=0&auid=&cn=defaultImpression&et=i&_cc=333763,185204,,,1297355868,1&tpos=60&iw=&uxnw=&uxss=&uxct=&init=1&cr=]]></Impression>
+      <Creatives>
+        <Creative AdID="333763">
+          <Linear>
+            <Duration>0:00:30</Duration>
+            <TrackingEvents/>
+            <VideoClicks>
+              <ClickTracking id="FWc_333763.0"><![CDATA[http://g1.v.fwmrm.net/ad/l/1?s=a008&t=12973558686991921&adid=333763&reid=185206&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=60&cr=]]></ClickTracking>
+            </VideoClicks>
+            <MediaFiles>
+              <MediaFile delivery="progressive" height="480" type="null/null" width="528"><![CDATA[http://test.ciscopath.com/UPMGP001H.mpg]]></MediaFile>
+              <MediaFile delivery="progressive" height="1080" type="null/null" width="1920"><![CDATA[http://test.ciscopath.com/HD_UPMGP001H.mpg]]></MediaFile>
+            </MediaFiles>
+          </Linear>
+        </Creative>
+      </Creatives>
+    </InLine>
+  </Ad>
+  <Ad id="333758.46912993001984">
+    <InLine>
+      <AdSystem>FreeWheel</AdSystem>
+      <AdTitle/>
+      <Impression id="FWi_333758.0"><![CDATA[http://g1.v.fwmrm.net/ad/l/1?s=a008&t=12973558686991921&adid=333758&reid=185184&arid=0&auid=&cn=defaultImpression&et=i&_cc=333758,185170,,,1297355868,1&tpos=30&iw=&uxnw=&uxss=&uxct=&init=1&cr=]]></Impression>
+      <Creatives>
+        <Creative AdID="333758">
+          <Linear>
+            <Duration>0:00:30</Duration>
+            <TrackingEvents/>
+            <VideoClicks>
+              <ClickTracking id="FWc_333758.0"><![CDATA[http://g1.v.fwmrm.net/ad/l/1?s=a008&t=12973558686991921&adid=333758&reid=185184&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=30&cr=]]></ClickTracking>
+            </VideoClicks>
+            <MediaFiles>
+              <MediaFile delivery="progressive" height="480" type="null/null" width="528"><![CDATA[http://test.ciscopath.com/UPGGP001H.mpg]]></MediaFile>
+            </MediaFiles>
+          </Linear>
+        </Creative>
+      </Creatives>
+    </InLine>
+  </Ad>
+  <Ad id="333762.46912994291344">
+    <InLine>
+      <AdSystem>FreeWheel</AdSystem>
+      <AdTitle/>
+      <Impression id="FWi_333762.0"><![CDATA[http://g1.v.fwmrm.net/ad/l/1?s=a008&t=12973558686991921&adid=333762&reid=185206&arid=0&auid=&cn=defaultImpression&et=i&_cc=333762,185204,,,1297355868,1&tpos=40&iw=&uxnw=&uxss=&uxct=&init=1&cr=]]></Impression>
+      <Creatives>
+        <Creative AdID="333762">
+          <Linear>
+            <Duration>0:00:30</Duration>
+            <TrackingEvents/>
+            <VideoClicks>
+              <ClickTracking id="FWc_333762.0"><![CDATA[http://g1.v.fwmrm.net/ad/l/1?s=a008&t=12973558686991921&adid=333762&reid=185206&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=40&cr=]]></ClickTracking>
+            </VideoClicks>
+            <MediaFiles>
+              <MediaFile delivery="progressive" height="480" type="null/null" width="528"><![CDATA[http://test.ciscopath.com/UPMGP001H.mpg]]></MediaFile>
+            </MediaFiles>
+          </Linear>
+        </Creative>
+      </Creatives>
+    </InLine>
+  </Ad>
+  <Ad id="333759.46912995558544">
+    <InLine>
+      <AdSystem>FreeWheel</AdSystem>
+      <AdTitle/>
+      <Impression id="FWi_333759.0"><![CDATA[http://g1.v.fwmrm.net/ad/l/1?s=a008&t=12973558686991921&adid=333759&reid=185184&arid=0&auid=&cn=defaultImpression&et=i&_cc=333759,185170,,,1297355868,1&tpos=50&iw=&uxnw=&uxss=&uxct=&init=1&cr=]]></Impression>
+      <Creatives>
+        <Creative AdID="333759">
+          <Linear>
+            <Duration>0:00:30</Duration>
+            <TrackingEvents/>
+            <VideoClicks>
+              <ClickTracking id="FWc_333759.0"><![CDATA[http://g1.v.fwmrm.net/ad/l/1?s=a008&t=12973558686991921&adid=333759&reid=185184&arid=0&auid=&cn=defaultClick&et=c&_cc=&tpos=50&cr=]]></ClickTracking>
+            </VideoClicks>
+            <MediaFiles>
+              <MediaFile delivery="progressive" height="480" type="null/null" width="528"><![CDATA[http://test.ciscopath.com/UPGGP001H.mpg]]></MediaFile>
+            </MediaFiles>
+          </Linear>
+        </Creative>
+      </Creatives>
+    </InLine>
+  </Ad>
+</VAST>

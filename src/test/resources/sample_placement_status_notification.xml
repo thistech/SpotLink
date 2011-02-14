@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ “The contents of this file are subject to the SpotLink Public License,
+  ~ version 1.0 (the “License”); you may not use this file except in
+  ~ compliance with the License.  You may obtain a copy of the License at
+  ~ http://www.thistech.com/spotlink/spl.
+  ~
+  ~ Software distributed under the License is distributed on an “AS IS”
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.  See
+  ~ the License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ The Original Code is SpotLink Server Code, release date February 14, 2011
+  ~ The Initial Developer of the Original Code is This Technology, LLC.
+  ~ Copyright (C) 2010-2011, This Technology, LLC
+  ~ All Rights Reserved.
+  -->
+<ns2:PlacementStatusNotification
+        xmlns="http://www.scte.org/schemas/130-2/2008a/core"
+        xmlns:ns2="http://www.scte.org/schemas/130-3/2008a/adm"
+        xmlns:ns3="http://www.scte.org/schemas/130-3/2008a/adm/podm"
+        xmlns:ns4="http://www.scte.org/schemas/130-8/2010a/gis"
+        xmlns:ns5="http://www.scte.org/schemas/130-6/2010/sis"
+        xmlns:ns6="http://www.scte.org/schemas/130-4/2008a/cis"
+        xmlns:ns7="http://www.scte.org/schemas/130-5/2010/pois"
+        system="spotlink_test" identity="spotlink" version="1.2" messageId="ebd4da8f-f7fe-4356-8d80-3b88e8311885">
+  <ns2:PlayData>
+    <ns2:SystemContext>
+      <ns2:Session>0021be01104a00000392</ns2:Session>
+    </ns2:SystemContext>
+    <ns2:Events>
+      <ns2:SessionEvent messageRef="206b69c6-8cf6-4dc1-9980-32d8777370e8" time="2011-02-04T14:39:07-05:00" type="startSegment">
+        <ns2:Entertainment>
+          <Content>
+            <AssetRef assetID="THTE2010092799990020" providerID="thistech.com"/>
+          </Content>
+          <ns2:EntertainmentNPT scale="0">0.0</ns2:EntertainmentNPT>
+        </ns2:Entertainment>
+        <ns2:NPT scale="0">0.0</ns2:NPT>
+      </ns2:SessionEvent>
+      <ns2:SessionEvent messageRef="206b69c6-8cf6-4dc1-9980-32d8777370e8" time="2011-02-04T14:39:15-05:00" type="startSegment">
+        <ns2:Entertainment>
+          <Content>
+            <AssetRef assetID="THTE2010092799990020" providerID="thistech.com"/>
+          </Content>
+          <ns2:EntertainmentNPT scale="1">0.0</ns2:EntertainmentNPT>
+        </ns2:Entertainment>
+        <ns2:NPT scale="1">6.0</ns2:NPT>
+      </ns2:SessionEvent>
+      <ns2:PlacementStatusEvent messageRef="206b69c6-8cf6-4dc1-9980-32d8777370e8" time="2011-02-04T14:39:45-05:00" type="endPlacement">
+        <ns2:Spot>
+          <Content>
+            <AssetRef assetID="THTE2010100500000694" providerID="ads.nbcuni.com"/>
+            <Tracking>be1bcf17-cc88-42fe-87d0-915edbec8b7d</Tracking>
+          </Content>
+          <ns2:SpotNPT scale="1">0.0</ns2:SpotNPT>
+        </ns2:Spot>
+        <ns2:NPT scale="1">35.763</ns2:NPT>
+      </ns2:PlacementStatusEvent>
+      <ns2:SessionEvent messageRef="206b69c6-8cf6-4dc1-9980-32d8777370e8" time="2011-02-04T14:39:45-05:00" type="startSegment">
+        <ns2:Entertainment>
+          <Content>
+            <AssetRef assetID="THTE2010092799990020" providerID="thistech.com"/>
+          </Content>
+          <ns2:EntertainmentNPT scale="1">0.0</ns2:EntertainmentNPT>
+        </ns2:Entertainment>
+        <ns2:NPT scale="1">35.763</ns2:NPT>
+      </ns2:SessionEvent>
+      <ns2:SessionEvent messageRef="206b69c6-8cf6-4dc1-9980-32d8777370e8" time="2011-02-04T15:27:46-05:00" type="endSegment">
+        <ns2:Entertainment>
+          <Content>
+            <AssetRef assetID="THTE2010092799990020" providerID="thistech.com"/>
+          </Content>
+        </ns2:Entertainment>
+      </ns2:SessionEvent>
+      <ns2:PlacementStatusEvent messageRef="206b69c6-8cf6-4dc1-9980-32d8777370e8" time="2011-02-04T15:27:46-05:00" type="endAll"/>
+    </ns2:Events>
+  </ns2:PlayData>
+</ns2:PlacementStatusNotification>

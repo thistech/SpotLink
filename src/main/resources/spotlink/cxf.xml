@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+  ~ “The contents of this file are subject to the SpotLink Public License,
+  ~ version 1.0 (the “License”); you may not use this file except in
+  ~ compliance with the License.  You may obtain a copy of the License at
+  ~ http://www.thistech.com/spotlink/spl.
+  ~
+  ~ Software distributed under the License is distributed on an “AS IS”
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.  See
+  ~ the License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ The Original Code is SpotLink Server Code, release date February 14, 2011
+  ~ The Initial Developer of the Original Code is This Technology, LLC.
+  ~ Copyright (C) 2010-2011, This Technology, LLC
+  ~ All Rights Reserved.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:cxf="http://cxf.apache.org/core"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+                           http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+                           http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+    <bean id="logInbound" class="org.apache.cxf.interceptor.LoggingInInterceptor"/>
+    <bean id="logOutbound" class="org.apache.cxf.interceptor.LoggingOutInterceptor"/>
+    <cxf:bus>
+        <cxf:inInterceptors>
+            <ref bean="logInbound" />
+        </cxf:inInterceptors>
+        <cxf:outInterceptors>
+            <ref bean="logOutbound" />
+        </cxf:outInterceptors>
+        <cxf:inFaultInterceptors>
+            <ref bean="logOutbound" />
+        </cxf:inFaultInterceptors>
+    </cxf:bus>
+
+    <!-- data bindings -->
+    <bean id="com.thistech.spotlink.NamespacePrefixMapper" class="com.thistech.spotlink.util.NamespacePrefixMapper"/>
+    <bean id="com.thistech.spotlink.JAXBDataBinding" class="org.apache.cxf.jaxb.JAXBDataBinding">
+        <property name="marshallerProperties">
+            <map>
+                <entry key="com.sun.xml.bind.namespacePrefixMapper" value-ref="com.thistech.spotlink.NamespacePrefixMapper" />
+            </map>
+        </property>
+        <property name="context" ref="com.thistech.spotlink.JAXBContext" />
+    </bean>
+
+    <!-- endpoints -->
+    <jaxws:endpoint id="com.thistech.spotlink.ADSEndpoint" implementor="#com.thistech.spotlink.ADS" address="/ads">
+        <jaxws:dataBinding>
+            <ref bean="com.thistech.spotlink.JAXBDataBinding" />
+        </jaxws:dataBinding>
+    </jaxws:endpoint>
+</beans>

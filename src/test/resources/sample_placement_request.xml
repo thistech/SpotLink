@@ -1,0 +1,115 @@
+<!--
+  ~ “The contents of this file are subject to the SpotLink Public License,
+  ~ version 1.0 (the “License”); you may not use this file except in
+  ~ compliance with the License.  You may obtain a copy of the License at
+  ~ http://www.thistech.com/spotlink/spl.
+  ~
+  ~ Software distributed under the License is distributed on an “AS IS”
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.  See
+  ~ the License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ The Original Code is SpotLink Server Code, release date February 14, 2011
+  ~ The Initial Developer of the Original Code is This Technology, LLC.
+  ~ Copyright (C) 2010-2011, This Technology, LLC
+  ~ All Rights Reserved.
+  -->
+
+
+<ns2:PlacementRequest system="test_system" identity="0c6d2b2-0b1e-4751-bf91-f41a7340487a" version="1.2" messageId="8790689a-8902-4df7-8aa4-35c6eee78a93" xmlns:ns2="http://www.scte.org/schemas/130-3/2008a/adm" xmlns="http://www.scte.org/schemas/130-2/2008a/core" xmlns:ns4="http://www.scte.org/schemas/130-8/2010a/gis" xmlns:ns3="http://www.scte.org/schemas/130-3/2008a/adm/podm" xmlns:ns5="http://www.scte.org/schemas/130-6/2010/sis" xmlns:ns6="http://www.scte.org/schemas/130-4/2008a/cis" xmlns:ns7="http://www.scte.org/schemas/130-5/2010/pois">
+ <ns2:SystemContext>
+    <ns2:Session>000a73271fc21fe9bfe5</ns2:Session>
+ </ns2:SystemContext>
+ <ns2:Service id="MOD"/>
+ <ns2:Entertainment>
+    <Content>
+       <AssetRef assetID="THTE2010092799990002" providerID="thistech.com"/>
+       <Duration>PT48M0.000S</Duration>
+    </Content>
+ </ns2:Entertainment>
+ <ns2:Client>
+    <CurrentDateTime>2011-02-01T18:54:30.506-05:00</CurrentDateTime>
+    <ns2:TerminalAddress type="MAC">000A73271FC2</ns2:TerminalAddress>
+    <ns2:TargetCode key="GUID">ca656f14-d374-11df-97d5-001a6499784c</ns2:TargetCode>
+    <ns2:TargetCode key="MACAddress">000A73271FC2</ns2:TargetCode>
+    <ns2:TargetCode key="Zip5">28269</ns2:TargetCode>
+    <ns2:TargetCode key="LOB_HSD">D</ns2:TargetCode>
+    <ns2:TargetCode key="AdZone">CLT</ns2:TargetCode>
+    <ns2:TargetCode key="SchNum">811</ns2:TargetCode>
+    <ns2:TargetCode key="TitleFull">Chase</ns2:TargetCode>
+    <ns2:TargetCode key="EpisodeID">103</ns2:TargetCode>
+    <ns2:TargetCode key="EncodingProfile">MPEG2HD</ns2:TargetCode>
+ </ns2:Client>
+ <ns3:PlacementOpportunityV2 serviceRegistrationRef="SpotlinkPlacementService" id="75332045-79e7-47a9-8578-b53092e3ac21">
+    <ns3:OpportunityBindingV2 poGroupIndex="1" opportunityNumber="1" opportunityType="midRoll"/>
+    <ns2:PlacementControl position="1" action="replace" id="e79d207f-b84f-479e-bfb8-03b47584ea6a">
+       <ns3:OpportunityConstraintsV2>
+          <AdType>Flexible 30</AdType>
+          <ns2:MaxDuration>P0Y0M0DT0H0M45.000S</ns2:MaxDuration>
+          <ns2:MinDuration>P0Y0M0DT0H0M14.000S</ns2:MinDuration>
+          <ns2:DesiredDuration>P0Y0M0DT0H0M30.000S</ns2:DesiredDuration>
+       </ns3:OpportunityConstraintsV2>
+    </ns2:PlacementControl>
+    <ns3:PlacementOpportunityTerms owner="National"/>
+ </ns3:PlacementOpportunityV2>
+ <ns3:PlacementOpportunityV2 serviceRegistrationRef="NBCSpotlinkPlacementService" id="880bede2-2eba-41ed-ac2f-fc610ecae6c0">
+    <ns3:OpportunityBindingV2 poGroupIndex="2" opportunityNumber="2" opportunityType="midRoll"/>
+    <ns2:PlacementControl position="1" action="replace" id="96eb4744-99ab-40d8-bce3-375835aff0c8">
+       <ns3:OpportunityConstraintsV2>
+          <AdType>Flexible 30</AdType>
+          <ns2:MaxDuration>P0Y0M0DT0H0M45.000S</ns2:MaxDuration>
+          <ns2:MinDuration>P0Y0M0DT0H0M14.000S</ns2:MinDuration>
+          <ns2:DesiredDuration>P0Y0M0DT0H0M30.000S</ns2:DesiredDuration>
+       </ns3:OpportunityConstraintsV2>
+    </ns2:PlacementControl>
+    <ns3:PlacementOpportunityTerms owner="National"/>
+ </ns3:PlacementOpportunityV2>
+ <ns3:PlacementOpportunityV2 serviceRegistrationRef="SpotlinkPlacementService" id="c8159c5b-6b36-4306-b157-d8a6eff65087">
+    <ns3:OpportunityBindingV2 poGroupIndex="3" opportunityNumber="3" opportunityType="midRoll"/>
+    <ns2:PlacementControl position="1" action="replace" id="544ff5e9-710a-45af-a209-5fc1efa4b00e">
+       <ns3:OpportunityConstraintsV2>
+          <AdType>Flexible 30</AdType>
+          <ns2:MaxDuration>P0Y0M0DT0H0M45.000S</ns2:MaxDuration>
+          <ns2:MinDuration>P0Y0M0DT0H0M14.000S</ns2:MinDuration>
+          <ns2:DesiredDuration>P0Y0M0DT0H0M30.000S</ns2:DesiredDuration>
+       </ns3:OpportunityConstraintsV2>
+    </ns2:PlacementControl>
+    <ns3:PlacementOpportunityTerms owner="National"/>
+ </ns3:PlacementOpportunityV2>
+ <ns3:PlacementOpportunityV2 serviceRegistrationRef="SpotlinkPlacementService" id="69e5dcd5-a1ab-4e1d-8b43-7cea2d4040b4">
+    <ns3:OpportunityBindingV2 poGroupIndex="4" opportunityNumber="4" opportunityType="midRoll"/>
+    <ns2:PlacementControl position="1" action="replace" id="f34dfb59-be7f-4d84-887c-86ccd8377c49">
+       <ns3:OpportunityConstraintsV2>
+          <AdType>Flexible 30</AdType>
+          <ns2:MaxDuration>P0Y0M0DT0H0M45.000S</ns2:MaxDuration>
+          <ns2:MinDuration>P0Y0M0DT0H0M14.000S</ns2:MinDuration>
+          <ns2:DesiredDuration>P0Y0M0DT0H0M30.000S</ns2:DesiredDuration>
+       </ns3:OpportunityConstraintsV2>
+    </ns2:PlacementControl>
+    <ns3:PlacementOpportunityTerms owner="National"/>
+ </ns3:PlacementOpportunityV2>
+ <ns3:PlacementOpportunityV2 serviceRegistrationRef="SpotlinkPlacementService" id="1c63eb99-d249-49aa-9464-710978d68405">
+    <ns3:OpportunityBindingV2 poGroupIndex="5" opportunityNumber="5" opportunityType="midRoll"/>
+    <ns2:PlacementControl position="1" action="replace" id="6246c0d2-0d60-4e11-a6a7-0cd60c108eb2">
+       <ns3:OpportunityConstraintsV2>
+          <AdType>Flexible 30</AdType>
+          <ns2:MaxDuration>P0Y0M0DT0H0M45.000S</ns2:MaxDuration>
+          <ns2:MinDuration>P0Y0M0DT0H0M14.000S</ns2:MinDuration>
+          <ns2:DesiredDuration>P0Y0M0DT0H0M30.000S</ns2:DesiredDuration>
+       </ns3:OpportunityConstraintsV2>
+    </ns2:PlacementControl>
+    <ns3:PlacementOpportunityTerms owner="National"/>
+ </ns3:PlacementOpportunityV2>
+ <ns3:PlacementOpportunityV2 serviceRegistrationRef="SpotlinkPlacementService" id="1a4d585d-b513-43e2-9c42-451bfb6d4374">
+    <ns3:OpportunityBindingV2 poGroupIndex="6" opportunityNumber="6" opportunityType="midRoll"/>
+    <ns2:PlacementControl position="1" action="replace" id="07c022a2-db82-415d-9ca7-1769b42009fc">
+       <ns3:OpportunityConstraintsV2>
+          <AdType>Flexible 30</AdType>
+          <ns2:MaxDuration>P0Y0M0DT0H0M45.000S</ns2:MaxDuration>
+          <ns2:MinDuration>P0Y0M0DT0H0M14.000S</ns2:MinDuration>
+          <ns2:DesiredDuration>P0Y0M0DT0H0M30.000S</ns2:DesiredDuration>
+       </ns3:OpportunityConstraintsV2>
+    </ns2:PlacementControl>
+    <ns3:PlacementOpportunityTerms owner="National"/>
+ </ns3:PlacementOpportunityV2>
+</ns2:PlacementRequest>

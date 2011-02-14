@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ “The contents of this file are subject to the SpotLink Public License,
+  ~ version 1.0 (the “License”); you may not use this file except in
+  ~ compliance with the License.  You may obtain a copy of the License at
+  ~ http://www.thistech.com/spotlink/spl.
+  ~
+  ~ Software distributed under the License is distributed on an “AS IS”
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.  See
+  ~ the License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ The Original Code is SpotLink Server Code, release date February 14, 2011
+  ~ The Initial Developer of the Original Code is This Technology, LLC.
+  ~ Copyright (C) 2010-2011, This Technology, LLC
+  ~ All Rights Reserved.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="com.thistech.spotlink.JAXBContext" class="javax.xml.bind.JAXBContext" factory-method="newInstance">
+        <constructor-arg>
+            <bean class="org.apache.commons.lang.StringUtils" factory-method="join">
+                <constructor-arg index="0">
+                    <list>
+                        <value>org.scte.schemas._130_2._2008a.core</value>
+                        <value>org.scte.schemas._130_3._2008a.adm</value>
+                        <value>org.scte.schemas._130_3._2008a.adm.podm</value>
+                        <value>org.scte.schemas._130_8._2010a.gis</value>
+                        <value>vast</value>
+                    </list>
+                </constructor-arg>
+                <constructor-arg index="1" value=":"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+</beans>

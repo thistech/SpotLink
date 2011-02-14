@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!--
+  ~ “The contents of this file are subject to the SpotLink Public License,
+  ~ version 1.0 (the “License”); you may not use this file except in
+  ~ compliance with the License.  You may obtain a copy of the License at
+  ~ http://www.thistech.com/spotlink/spl.
+  ~
+  ~ Software distributed under the License is distributed on an “AS IS”
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.  See
+  ~ the License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ The Original Code is SpotLink Server Code, release date February 14, 2011
+  ~ The Initial Developer of the Original Code is This Technology, LLC.
+  ~ Copyright (C) 2010-2011, This Technology, LLC
+  ~ All Rights Reserved.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- properties -->
+    <bean id="com.thistech.spotlink.Properties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:spotlink-defaults.properties</value>
+                <value>classpath:spotlink.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="com.thistech.spotlink.PropertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties" ref="com.thistech.spotlink.Properties"/>
+    </bean>
+
+    <bean id="com.thistech.spotlink.AdmClientFactory" class="com.thistech.spotlink.client.AdmClientFactory"/>
+
+    <bean name="com.thistech.spotlink.AdmRegistrationJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="com.thistech.spotlink.job.AdmRegistrationJob"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="admClientFactory" value-ref="com.thistech.spotlink.AdmClientFactory"/>
+                <entry key="admEndpoints" value="${admEndpoints}"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="com.thistech.spotlink.AdmRegistrationJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="com.thistech.spotlink.AdmRegistrationJob"/>
+        <property name="cronExpression" value="0 */5 * * * ?"/>
+    </bean>
+
+    <bean id="com.thistech.spotlink.ADS" class="com.thistech.spotlink.service.AdsService" lazy-init="true">
+        <constructor-arg index="0" value="${adsIdentity}"/>
+        <constructor-arg index="1" value="${adsSystem}"/>
+        <constructor-arg index="2" value="${adsVersion}"/>
+    </bean>
+
+    <bean id="com.thistech.spotlink.CacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" lazy-init="true">
+        <property name="configLocation" value="classpath:${ehcacheConfig}"/>
+    </bean>
+
+    <bean id="com.thistech.spotlink.HttpClient" class="${httpClient}" lazy-init="true"/>
+
+    <bean id="com.thistech.spotlink.JAXBContext" class="javax.xml.bind.JAXBContext" factory-method="newInstance">
+        <constructor-arg>
+            <bean class="org.apache.commons.lang.StringUtils" factory-method="join">
+                <constructor-arg index="0">
+                    <list>
+                        <value>org.scte.schemas._130_2._2008a.core</value>
+                        <value>org.scte.schemas._130_3._2008a.adm</value>
+                        <value>org.scte.schemas._130_3._2008a.adm.podm</value>
+                        <value>org.scte.schemas._130_8._2010a.gis</value>
+                        <value>vast</value>
+                    </list>
+                </constructor-arg>
+                <constructor-arg index="1" value=":"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <bean id="com.thistech.spotlink.PlacementDecisionEngine" class="com.thistech.spotlink.engine.AbstractPlacementDecisionEngine" factory-method="newInstance">
+        <constructor-arg value="${placementDecisionEngine}"/>
+        <constructor-arg value="${placementDecisionEngineEndpoint}"/>
+    </bean>
+
+    <bean id="com.thistech.spotlink.QuartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="com.thistech.spotlink.AdmRegistrationJobTrigger" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="com.thistech.spotlink.TrackingEventsDao" class="com.thistech.spotlink.persistence.TrackingEventsDao" lazy-init="true"/>
+
+    <bean id="com.thistech.spotlink.TrackingService" class="${trackingService}" lazy-init="true"/>
+
+    <import resource="classpath:/spotlink/cxf.xml"/>
+</beans>
