@@ -58,7 +58,7 @@ public abstract class AbstractPlacementDecisionEngine implements PlacementDecisi
     @Resource(name = "com.thistech.spotlink.TrackingService")
     protected ITrackingService trackingService;
     @Resource(name = "com.thistech.spotlink.JAXBContext")
-    protected JAXBContext jaxbContext;
+    private JAXBContext jaxbContext;
     @Resource(name = "com.thistech.spotlink.Properties")
     protected Properties properties;
 
@@ -148,7 +148,7 @@ public abstract class AbstractPlacementDecisionEngine implements PlacementDecisi
 
         try {
             if (!(body instanceof String)) {
-                body = XmlUtil.marshalToString(jaxbContext, body);
+                body = XmlUtil.marshalToString(this.getJaxbContext(), body);
             }
             // freewheel requests need namespace removed
             body = StringUtils.replace((String) body, "fwns:", "");
@@ -224,5 +224,9 @@ public abstract class AbstractPlacementDecisionEngine implements PlacementDecisi
      */
     protected void saveTrackingEvents(TrackingEvents trackingEvents) {
         trackingService.saveTrackingEvents(trackingEvents);
+    }
+
+    protected JAXBContext getJaxbContext() {
+        return jaxbContext;
     }
 }
