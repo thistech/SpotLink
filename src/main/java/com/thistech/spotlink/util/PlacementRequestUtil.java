@@ -20,6 +20,7 @@ package com.thistech.spotlink.util;
 import org.apache.commons.lang.StringUtils;
 import org.scte.schemas._130_3._2008a.adm.PlacementRequestType;
 import org.scte.schemas._130_3._2008a.adm.TargetCode;
+import org.springframework.util.CollectionUtils;
 
 public class PlacementRequestUtil {
 
@@ -27,7 +28,7 @@ public class PlacementRequestUtil {
         if (placementRequest != null && placementRequest.getClient() != null && placementRequest.getClient().getTargetCode() != null) {
             for (TargetCode targetCode : placementRequest.getClient().getTargetCode()) {
                 if (StringUtils.equalsIgnoreCase(targetCode.getKey(), key)) {
-                    if (targetCode.getContent() != null) {
+                    if (!CollectionUtils.isEmpty(targetCode.getContent())) {
                         return (String) targetCode.getContent().iterator().next();
                     }
                 }
