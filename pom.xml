@@ -21,7 +21,7 @@
     <groupId>com.thistech</groupId>
     <artifactId>spotlink-oss</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <name>spotlink-oss</name>
 
     <organization>
@@ -59,7 +59,7 @@
     <properties>
         <cxf.version>2.3.2</cxf.version>
         <ehcache.version>2.3.0</ehcache.version>
-        <schemasupport.version>1.12</schemasupport.version>
+        <schemasupport.version>1.13</schemasupport.version>
         <spring.version>3.0.5.RELEASE</spring.version>
     </properties>
 
@@ -203,7 +203,7 @@
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
-            <version>1.8.3</version>
+            <version>1.8.4</version>
         </dependency>
         <!-- test dependencies -->
         <dependency>
