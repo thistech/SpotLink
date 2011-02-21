@@ -59,38 +59,17 @@ public abstract class AbstractPlacementDecisionEngine implements PlacementDecisi
     protected ITrackingService trackingService;
     @Resource(name = "com.thistech.spotlink.JAXBContext")
     private JAXBContext jaxbContext;
-    @Resource(name = "com.thistech.spotlink.Properties")
     protected Properties properties;
 
-    protected URI endpoint;
-
-    protected AbstractPlacementDecisionEngine(URI endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    /**
-     * Construct a new AbstractPlacementDecisionEngine
-     * @param clazz The specific implementation
-     * @param endpoint The endpoint
-     * @return A AbstractPlacementDecisionEngine
-     */
-    public static PlacementDecisionEngine newInstance(Class<? extends PlacementDecisionEngine> clazz, URI endpoint) {
-        try {
-            return clazz.getConstructor(URI.class).newInstance(endpoint);
-        }
-        catch (Exception e) {
-            log.error(String.format("Could not construct instance of %s", clazz));
-            throw new SpotLinkException(e);
-        }
+    protected AbstractPlacementDecisionEngine(Properties props) {
+        this.properties = props;
     }
 
     /**
      * Get the endpoint uri
      * @return The endpoint uri
      */
-    protected URI getEndpoint() {
-        return endpoint;
-    }
+    abstract URI getEndpoint();
 
     /**
      * Get the response as a raw string

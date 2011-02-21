@@ -27,13 +27,19 @@ import org.scte.schemas._130_3._2008a.adm.PlacementRequestType;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class TestableDecisionEngine extends AbstractPlacementDecisionEngine implements PlacementDecisionEngine {
 
     public final static int COLLECTION_SIZE = 6;
 
-    public TestableDecisionEngine(URI endpoint) {
-        super(endpoint);
+    @Override
+    URI getEndpoint() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public TestableDecisionEngine(Properties properties) {
+        super(properties);
     }
 
     @Override

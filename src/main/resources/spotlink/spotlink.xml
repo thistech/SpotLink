@@ -78,9 +78,11 @@
         </constructor-arg>
     </bean>
 
-    <bean id="com.thistech.spotlink.PlacementDecisionEngine" class="com.thistech.spotlink.engine.AbstractPlacementDecisionEngine" factory-method="newInstance">
-        <constructor-arg value="${placementDecisionEngine}"/>
-        <constructor-arg value="${placementDecisionEngineEndpoint}"/>
+    <bean id="com.thistech.spotlink.PlacementDecisionEngineFactory" class="com.thistech.spotlink.engine.PlacementDecisionEngineFactory"/>
+
+    <bean id="com.thistech.spotlink.PlacementDecisionEngine"
+          factory-bean="com.thistech.spotlink.PlacementDecisionEngineFactory" factory-method="newInstance">
+        <constructor-arg ref="com.thistech.spotlink.Properties"/>
     </bean>
 
     <bean id="com.thistech.spotlink.QuartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
