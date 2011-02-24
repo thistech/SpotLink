@@ -18,15 +18,54 @@ package com.thistech.spotlink.client;
  */
 
 import com.thistech.spotlink.AbstractSpotlinkTest;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.scte.wsdl._130_3._2009.adm.ADMService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.util.Properties;
+
+import static org.mockito.Mockito.*;
 
 public class AdmClientFactoryTest extends AbstractSpotlinkTest {
 
+    @InjectMocks
+    private AdmClientFactory admClientFactory = null;
+    @Mock
+    private Properties properties = null;
+
+    @BeforeTest
+    public void setup() {
+        this.admClientFactory = AdmClientFactory.instance();
+        MockitoAnnotations.initMocks(this);
+
+        when(this.properties.containsKey("cxf.service.timeout")).thenReturn(true);
+        when(this.properties.getProperty("cxf.service.timeout")).thenReturn("1000");
+    }
+
     @Test
     public void testInstantiation() {
-        AdmClientFactory admClientFactory = AdmClientFactory.instance();
+        this.admClientFactory = AdmClientFactory.instance();
         Assert.assertNotNull(admClientFactory);
-//        Object admClient = admClientFactory.create("http://localhost:8080/spotlink/services/adm");
+        Object admClient = admClientFactory.create("http://localhost:8080/spotlink/services/adm");
+        Client client = ClientProxy.getClient(admClient);
+        HTTPConduit conduit = (HTTPConduit) client.getConduit();
+        HTTPClientPolicy policy = conduit.getClient();
+        long propertyValue = Long.parseLong(this.properties.getProperty("cxf.service.timeout"));
+        long connectionTimeout = policy.getConnectionTimeout();
+        long receiveTimeout = policy.getReceiveTimeout();
+        Assert.assertTrue(propertyValue == connectionTimeout &&
+                          propertyValue == receiveTimeout);
     }
 }

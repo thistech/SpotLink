@@ -34,7 +34,7 @@ public class TestableDecisionEngine extends AbstractPlacementDecisionEngine impl
     public final static int COLLECTION_SIZE = 6;
 
     @Override
-    URI getEndpoint() {
+    public URI getEndpoint() {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 

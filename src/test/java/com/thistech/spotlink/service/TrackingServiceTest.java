@@ -20,13 +20,13 @@ package com.thistech.spotlink.service;
 import com.thistech.spotlink.engine.TestableDecisionEngine;
 import com.thistech.spotlink.model.TrackingEvents;
 import com.thistech.spotlink.persistence.ITrackingEventsDao;
-import com.thistech.spotlink.util.SpotLinkHttpClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.ProtocolVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.message.BasicStatusLine;
 import org.mockito.InjectMocks;
@@ -45,7 +45,7 @@ public class TrackingServiceTest {
     @Mock
     private ITrackingEventsDao mockTrackingEventsDao = null;
     @Mock
-    private HttpClient mockHttpClient = Mockito.mock(SpotLinkHttpClient.class, Mockito.RETURNS_DEEP_STUBS);
+    private HttpClient mockHttpClient = Mockito.mock(DefaultHttpClient.class, Mockito.RETURNS_DEEP_STUBS);
 
     @BeforeTest
     public void setupTest() {

@@ -69,7 +69,7 @@ public abstract class AbstractPlacementDecisionEngine implements PlacementDecisi
      * Get the endpoint uri
      * @return The endpoint uri
      */
-    abstract URI getEndpoint();
+    public abstract URI getEndpoint();
 
     /**
      * Get the response as a raw string

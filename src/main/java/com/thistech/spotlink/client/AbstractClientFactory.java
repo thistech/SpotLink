@@ -18,13 +18,23 @@ package com.thistech.spotlink.client;
  */
 
 import javax.annotation.Resource;
+
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.jaxb.JAXBDataBinding;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+
+import java.util.Properties;
 
 public abstract class AbstractClientFactory<T> {
 
     @Resource(name = "com.thistech.spotlink.JAXBDataBinding")
     private JAXBDataBinding dataBinding;
+
+    @Resource(name = "com.thistech.spotlink.Properties")
+    private Properties properties = null;
 
     private final Class clazz;
     private final String wsdl;
@@ -41,6 +51,20 @@ public abstract class AbstractClientFactory<T> {
         factoryBean.setWsdlLocation(wsdl);
         factoryBean.setDataBinding(dataBinding);
         factoryBean.setAddress(address);
-        return (T) factoryBean.create();
+        Object service = factoryBean.create();
+
+        if (this.properties.containsKey("cxf.service.timeout")) {
+            Client client = ClientProxy.getClient(service);
+            if (client != null) {
+                HTTPConduit conduit = (HTTPConduit) client.getConduit();
+                long timeout = Long.parseLong(this.properties.getProperty("cxf.service.timeout"));
+                HTTPClientPolicy policy = new HTTPClientPolicy();
+                policy.setConnectionTimeout(timeout);
+                policy.setReceiveTimeout(timeout);
+                conduit.setClient(policy);
+            }
+        }
+
+        return (T) service;
     }
 }

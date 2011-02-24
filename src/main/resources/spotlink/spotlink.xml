@@ -59,7 +59,9 @@
         <property name="configLocation" value="classpath:${ehcacheConfig}"/>
     </bean>
 
-    <bean id="com.thistech.spotlink.HttpClient" class="${httpClient}" lazy-init="true"/>
+    <bean id="httpClientFactory" class="com.thistech.spotlink.util.HttpClientFactory"/>
+
+    <bean id="com.thistech.spotlink.HttpClient" factory-bean="httpClientFactory" factory-method="newInstance"/>
 
     <bean id="com.thistech.spotlink.JAXBContext" class="javax.xml.bind.JAXBContext" factory-method="newInstance">
         <constructor-arg>
