@@ -21,7 +21,7 @@
     <groupId>com.thistech</groupId>
     <artifactId>spotlink-oss</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.1</version>
     <name>spotlink-oss</name>
 
     <organization>
