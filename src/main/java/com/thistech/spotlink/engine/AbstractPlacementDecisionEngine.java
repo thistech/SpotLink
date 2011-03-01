@@ -24,7 +24,6 @@ import com.thistech.spotlink.SpotLinkException;
 import com.thistech.spotlink.model.Ad;
 import com.thistech.spotlink.model.MediaFile;
 import com.thistech.spotlink.model.TrackingEvents;
-import com.thistech.spotlink.service.ITrackingService;
 import com.thistech.spotlink.util.ListUtil;
 import com.thistech.spotlink.util.XmlUtil;
 import org.apache.commons.lang.StringUtils;
@@ -32,11 +31,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.scte.schemas._130_2._2008a.core.ContentType;
-import org.scte.schemas._130_3._2008a.adm.PlacementControlType;
-import org.scte.schemas._130_3._2008a.adm.PlacementDecisionType;
-import org.scte.schemas._130_3._2008a.adm.PlacementOpportunityType;
-import org.scte.schemas._130_3._2008a.adm.PlacementRequestType;
-import org.scte.schemas._130_3._2008a.adm.PlacementType;
+import org.scte.schemas._130_3._2008a.adm.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,8 +50,8 @@ import java.util.Properties;
 public abstract class AbstractPlacementDecisionEngine implements PlacementDecisionEngine {
     private static final Logger log = LoggerFactory.getLogger(AbstractPlacementDecisionEngine.class);
 
-    @Resource(name = "com.thistech.spotlink.TrackingService")
-    protected ITrackingService trackingService;
+    @Resource(name = "trackingEngine")
+    protected TrackingEngine trackingEngine = null;
     @Resource(name = "com.thistech.spotlink.JAXBContext")
     private JAXBContext jaxbContext;
     protected Properties properties;
@@ -202,7 +197,7 @@ public abstract class AbstractPlacementDecisionEngine implements PlacementDecisi
      * @param trackingEvents The TrackingEvents
      */
     protected void saveTrackingEvents(TrackingEvents trackingEvents) {
-        trackingService.saveTrackingEvents(trackingEvents);
+        this.trackingEngine.saveTrackingEvents(trackingEvents);
     }
 
     protected JAXBContext getJaxbContext() {

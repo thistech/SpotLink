@@ -17,11 +17,15 @@ package com.thistech.spotlink.util;
  * All Rights Reserved.
  */
 
-import java.util.ArrayList;
-import java.util.List;
 import com.thistech.spotlink.model.Ad;
 import com.thistech.spotlink.model.MediaFile;
+import org.apache.commons.lang.StringUtils;
+import vast.ImpressionType;
+import vast.TrackingEventsType;
 import vast.VAST;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VastParser {
     private static VastParser instance;
@@ -39,12 +43,13 @@ public class VastParser {
     public List<Ad> parse(VAST vast) {
         List<Ad> ads = new ArrayList<Ad>();
 
-        for (int i=0; i<vast.getAd().size(); i++) {
+        for (int i = 0; i < vast.getAd().size(); i++) {
             VAST.Ad vastAd = vast.getAd().get(i);
             Ad ad = getAd(ads, i);
 
             if (vastAd.getInLine() != null) {
                 if (vastAd.getInLine().getCreatives() != null) {
+                    TrackingEventsType trackingEvents = null;
                     for (VAST.Ad.InLine.Creatives.Creative creative : vastAd.getInLine().getCreatives().getCreative()) {
                         if (creative.getLinear() != null) {
                             if (creative.getLinear().getMediaFiles() != null) {
@@ -52,6 +57,15 @@ public class VastParser {
                                     ad.getMediaFiles().add(new MediaFile(vastMediaFile));
                                 }
                             }
+                            trackingEvents = creative.getLinear().getTrackingEvents();
+                        }
+                    }
+                    for (ImpressionType impression : vastAd.getInLine().getImpression()) {
+                        ad.addTrackingEventUrl("impression", impression.getValue());
+                    }
+                    if (trackingEvents != null) {
+                        for (TrackingEventsType.Tracking tracking : trackingEvents.getTracking()) {
+                            ad.addTrackingEventUrl(tracking.getEvent(), StringUtils.trimToNull(tracking.getValue()));
                         }
                     }
                 }
@@ -62,7 +76,9 @@ public class VastParser {
     }
 
     protected Ad getAd(List<Ad> ads, int i) {
-        if (ads == null) { return null; }
+        if (ads == null) {
+            return null;
+        }
         while (ads.size() <= i) {
             ads.add(new Ad());
         }

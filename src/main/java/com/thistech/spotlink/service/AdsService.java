@@ -23,6 +23,7 @@ import com.thistech.schemasupport.scte130.builder.adm.PlacementStatusAckBuilder;
 import com.thistech.schemasupport.scte130.builder.core.ServiceCheckResponseBuilder;
 import com.thistech.schemasupport.scte130.builder.core.ServiceStatusAckBuilder;
 import com.thistech.spotlink.engine.PlacementDecisionEngine;
+import com.thistech.spotlink.engine.TrackingEngine;
 import org.scte.schemas._130_2._2008a.core.ServiceCheckRequestType;
 import org.scte.schemas._130_2._2008a.core.ServiceCheckResponseType;
 import org.scte.schemas._130_2._2008a.core.ServiceStatusAcknowledgementType;
@@ -44,8 +45,8 @@ public class AdsService implements ADS {
 
     @Resource(name = "com.thistech.spotlink.PlacementDecisionEngine")
     protected PlacementDecisionEngine placementDecisionEngine;
-    @Resource(name = "com.thistech.spotlink.TrackingService")
-    protected ITrackingService trackingService;
+    @Resource(name = "trackingEngine")
+    protected TrackingEngine trackingEngine = null;
 
     protected String identity;
     protected String system;
@@ -84,13 +85,13 @@ public class AdsService implements ADS {
 
     public PlacementStatusAcknowledgementType placementStatusNotification(PlacementStatusNotificationType notification) {
         for (PlayDataType playData : notification.getPlayData()) {
-            for (Object o : playData.getEvents().getPlacementStatusEventOrSessionEventOrSystemEvent()) {
-                EventBaseType event = (EventBaseType) o;
-                if (event.getSpot() != null && event.getSpot().getContent() != null && event.getSpot().getContent().getTracking() != null) {
-                    trackingService.trackEvent(event.getSpot().getContent().getTracking().getValue(), event.getType());
+            for (Object obj : playData.getEvents().getPlacementStatusEventOrSessionEventOrSystemEvent()) {
+                if(obj instanceof PlacementStatusEventType) {
+                    this.trackingEngine.trackEvent((PlacementStatusEventType) obj);
                 }
             }
         }
+
         return (PlacementStatusAcknowledgementType) new PlacementStatusAckBuilder(notification)
                 .withMessageId(getMessageId())
                 .withIdentity(identity)

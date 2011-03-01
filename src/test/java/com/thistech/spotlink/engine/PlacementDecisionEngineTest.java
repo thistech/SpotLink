@@ -20,25 +20,25 @@ package com.thistech.spotlink.engine;
 import com.thistech.schemasupport.scte130.util.ObjectFactoryProxy;
 import com.thistech.spotlink.AbstractSpotlinkTest;
 import com.thistech.spotlink.SpotLinkException;
-import com.thistech.spotlink.service.ITrackingService;
+import com.thistech.spotlink.TestHelper;
 import org.apache.http.client.methods.HttpPost;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.scte.schemas._130_3._2008a.adm.PlacementDecisionType;
 import org.scte.schemas._130_3._2008a.adm.PlacementRequestType;
 import org.scte.schemas._130_3._2008a.adm.PlacementType;
-import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import java.io.IOException;
-import java.net.URI;
 import java.util.List;
 import java.util.Properties;
+
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.*;
+import static org.testng.Assert.*;
 
 public class PlacementDecisionEngineTest extends AbstractSpotlinkTest {
 
@@ -46,7 +46,7 @@ public class PlacementDecisionEngineTest extends AbstractSpotlinkTest {
     @InjectMocks
     private TestableDecisionEngine placementDecisionEngine = null;
     @Mock
-    private ITrackingService mockTrackingService = null;
+    private TrackingEngine mockTrackingService = null;
     @Mock
     private JAXBContext mockJaxbContext = null;
     @Mock
@@ -56,13 +56,13 @@ public class PlacementDecisionEngineTest extends AbstractSpotlinkTest {
     public void setup() throws Exception {
         this.placementDecisionEngine = new TestableDecisionEngine(new Properties());
 
-        MockitoAnnotations.initMocks(this);
-        Mockito.when(this.mockJaxbContext.createMarshaller()).thenReturn(this.mockMarshaller);
+        initMocks(this);
+        when(this.mockJaxbContext.createMarshaller()).thenReturn(this.mockMarshaller);
     }
 
     @Test()
     public void testGetPlacementDecisions() {
-        for (int i = 0; i < TestableDecisionEngine.COLLECTION_SIZE; i++) {
+        for (int i = 0; i < TestHelper.COLLECTION_SIZE; i++) {
             this.mockTrackingService.saveTrackingEvents(null);
         }
 
@@ -71,18 +71,18 @@ public class PlacementDecisionEngineTest extends AbstractSpotlinkTest {
         List<PlacementDecisionType> decisions =
                 this.placementDecisionEngine.getPlacementDecisions(placementRequest);
 
-        Assert.assertTrue(6 == decisions.size(), "Expecting 6 placement decisions");
+        assertTrue(6 == decisions.size(), "Expecting 6 placement decisions");
 
         for (PlacementDecisionType decision : decisions) {
-            Assert.assertNotNull(decision.getId());
-            Assert.assertNotNull(decision.getPlacementOpportunityRef());
+            assertNotNull(decision.getId());
+            assertNotNull(decision.getPlacementOpportunityRef());
 
             List<PlacementType> placements = decision.getPlacement();
             int index = 0;
             for (PlacementType placement : placements) {
-                Assert.assertEquals("TrackingEvents!", placement.getContent().getTracking().getValue());
-                Assert.assertEquals(String.valueOf(index), placement.getContent().getAssetRef().getAssetID());
-                Assert.assertEquals("http://www.url.com", placement.getContent().getAssetRef().getProviderID());
+                assertEquals("be1bcf17-cc88-42fe-87d0-915edbec8b7d", placement.getContent().getTracking().getValue());
+                assertEquals(String.valueOf(index), placement.getContent().getAssetRef().getAssetID());
+                assertEquals("http://www.url.com", placement.getContent().getAssetRef().getProviderID());
                 index++;
             }
 
@@ -95,38 +95,30 @@ public class PlacementDecisionEngineTest extends AbstractSpotlinkTest {
                 (PlacementRequestType) this.unmarshal(this.getClass(), "/sample_placement_request.xml");
         HttpPost post = this.placementDecisionEngine.buildHttpPost(
                 ObjectFactoryProxy.ADM.createPlacementRequest(placementRequest));
-        Assert.assertNotNull(post);
-        Assert.assertEquals(this.placementDecisionEngine.getEndpoint(), post.getURI());
+        assertNotNull(post);
+        assertEquals(this.placementDecisionEngine.getEndpoint(), post.getURI());
         try {
-            Assert.assertNotNull(post.getEntity().getContent());
+            assertNotNull(post.getEntity().getContent());
         } catch (IOException e) {
-            Assert.fail();
+            fail();
         }
 
         String response = this.placementDecisionEngine.getStringResponse(post.getEntity());
-        Assert.assertNotNull(response);
+        assertNotNull(response);
+    }
+
+    @Test(expectedExceptions = SpotLinkException.class)
+    public void testBuildHttpPostException() throws Exception {
+        this.placementDecisionEngine.buildHttpPost(null);
     }
 
     @Test
-    public void testExceptionHandling() {
-//        try {
-//            PlacementDecisionEngineFactory.newInstance(null, null);
-//        } catch (SpotLinkException e) {
-//        }
+    public void testGetStringResponseException() throws Exception {
+        assertNull(this.placementDecisionEngine.getStringResponse(null));
+    }
 
-        try {
-            this.placementDecisionEngine.buildHttpPost(null);
-        } catch (SpotLinkException e) {
-        }
-
-        try {
-            this.placementDecisionEngine.getStringResponse(null);
-        } catch (SpotLinkException e) {
-        }
-
-        try {
-            this.placementDecisionEngine.buildContent(null, null);
-        } catch (SpotLinkException e) {
-        }
+    @Test
+    public void testBuildContentException() throws Exception {
+        assertNull(this.placementDecisionEngine.buildContent(null, null));
     }
 }

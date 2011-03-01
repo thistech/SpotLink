@@ -97,7 +97,11 @@
 
     <bean id="com.thistech.spotlink.TrackingEventsDao" class="com.thistech.spotlink.persistence.TrackingEventsDao" lazy-init="true"/>
 
-    <bean id="com.thistech.spotlink.TrackingService" class="${trackingService}" lazy-init="true"/>
+    <bean id="trackingEngineFactory" class="com.thistech.spotlink.engine.TrackingEngineFactory"/>
+
+    <bean id="trackingEngine" factory-bean="trackingEngineFactory" factory-method="newInstance">
+        <constructor-arg type="java.util.Properties" ref="com.thistech.spotlink.Properties"/>
+    </bean>
 
     <import resource="classpath:/spotlink/cxf.xml"/>
 </beans>

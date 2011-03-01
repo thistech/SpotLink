@@ -1,7 +1,5 @@
-package com.thistech.spotlink.service;
-
 /*
- * “The contents of this file are subject to the SpotLink Public License,
+ * The contents of this file are subject to the SpotLink Public License,
  * version 1.0 (the “License”); you may not use this file except in
  * compliance with the License.  You may obtain a copy of the License at
  * http://www.thistech.com/spotlink/spl.
@@ -17,11 +15,17 @@ package com.thistech.spotlink.service;
  * All Rights Reserved.
  */
 
-import com.thistech.spotlink.model.TrackingEvents;
+package com.thistech.spotlink.engine;
 
-public interface ITrackingService {
+import org.scte.schemas._130_3._2008a.adm.PlacementStatusEventType;
 
-    void saveTrackingEvents(TrackingEvents trackingEvents);
+import java.io.Serializable;
 
-    void trackEvent(String id, String event);
+public interface TrackingEngine {
+
+    void trackEvent(PlacementStatusEventType placementStatusEvent);
+
+    void saveTrackingEvents(Serializable trackingEvents);
+
+    Serializable getTrackingEvents(String trackingId);
 }

@@ -1,7 +1,5 @@
-package com.thistech.spotlink.service;
-
 /*
- * “The contents of this file are subject to the SpotLink Public License,
+ * The contents of this file are subject to the SpotLink Public License,
  * version 1.0 (the “License”); you may not use this file except in
  * compliance with the License.  You may obtain a copy of the License at
  * http://www.thistech.com/spotlink/spl.
@@ -17,39 +15,59 @@ package com.thistech.spotlink.service;
  * All Rights Reserved.
  */
 
-import javax.annotation.Resource;
+package com.thistech.spotlink.engine;
+
 import com.thistech.spotlink.model.TrackingEvents;
 import com.thistech.spotlink.persistence.ITrackingEventsDao;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.*;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.scte.schemas._130_3._2008a.adm.EventBaseType;
+import org.scte.schemas._130_3._2008a.adm.PlacementStatusEventType;
+import org.scte.schemas._130_3._2008a.adm.PlacementStatusNotificationType;
+import org.scte.schemas._130_3._2008a.adm.PlayDataType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TrackingService implements ITrackingService {
-    private static final Logger log = LoggerFactory.getLogger(TrackingService.class);
+import javax.annotation.Resource;
+import java.io.Serializable;
+import java.util.Properties;
+import java.util.UUID;
+
+public class HttpTrackingEngine extends AbstractCachingTrackingEngine implements TrackingEngine {
+    private static final Logger log = LoggerFactory.getLogger(HttpTrackingEngine.class);
 
     @Resource(name = "com.thistech.spotlink.HttpClient")
-    protected HttpClient httpClient;
-    @Resource(name = "com.thistech.spotlink.TrackingEventsDao")
-    protected ITrackingEventsDao trackingEventsDao;
+    protected HttpClient httpClient = null;
 
-    public void saveTrackingEvents(TrackingEvents trackingEvents) {
-        trackingEventsDao.save(trackingEvents);
+    public HttpTrackingEngine(Properties properties) {
+        super(properties);
     }
 
-    public void trackEvent(String trackingId, String placementStatusEventType) {
-        TrackingEvents tracking = trackingEventsDao.get(trackingId);
+    @Override
+    public void trackEvent(PlacementStatusEventType event) {
+        if (event.getSpot() != null
+                && event.getSpot().getContent() != null
+                && event.getSpot().getContent().getTracking() != null) {
+            String trackingId = event.getSpot().getContent().getTracking().getValue();
+            String eventType = event.getType();
+            this.trackEvent(trackingId, eventType);
+        }
+    }
+
+    protected void trackEvent(String trackingId, String placementStatusEventType) {
+        TrackingEvents tracking = this.getTrackingEvents(trackingId);
         if (tracking == null) {
             log.error(String.format("No Tracking data for %s", trackingId));
             return;
         }
 
-        String event = getEvent(placementStatusEventType);
-        String url = tracking.getEventUrl(event);
+        String url = tracking.getEventUrl(placementStatusEventType);
         if (StringUtils.isEmpty(url)) {
-            log.info("Tacking %s does not contain a tracking url for Event '%s'", trackingId, event);
+            log.info("Tacking %s does not contain a tracking url for Event '%s'", trackingId, placementStatusEventType);
             return;
         }
 
@@ -65,9 +83,5 @@ public class TrackingService implements ITrackingService {
         catch (Exception e) {
             log.error(String.format("HTTP GET on %s failed. Exception:", url), e);
         }
-    }
-
-    protected String getEvent(String placementStatusEventType) {
-        return placementStatusEventType;
     }
 }

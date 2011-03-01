@@ -17,6 +17,14 @@ package com.thistech.spotlink;
  * All Rights Reserved.
  */
 
+import com.thistech.spotlink.model.Ad;
+import com.thistech.spotlink.model.MediaFile;
+import com.thistech.spotlink.model.TrackingEvents;
+import org.apache.http.HttpResponse;
+import org.apache.http.ProtocolVersion;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.message.BasicHttpResponse;
+import org.apache.http.message.BasicStatusLine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +35,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.transform.stream.StreamSource;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 @ContextConfiguration
 public class AbstractSpotlinkTest extends AbstractTestNGSpringContextTests {
@@ -48,5 +59,17 @@ public class AbstractSpotlinkTest extends AbstractTestNGSpringContextTests {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    protected HttpResponse prepareResponse(int expectedResponseStatus, String expectedResponseBody) {
+        HttpResponse response = new BasicHttpResponse(
+                new BasicStatusLine(new ProtocolVersion("HTTP", 1, 1), expectedResponseStatus, ""));
+        response.setStatusCode(expectedResponseStatus);
+        try {
+            response.setEntity(new StringEntity(expectedResponseBody));
+        } catch (UnsupportedEncodingException e) {
+            throw new IllegalArgumentException(e);
+        }
+        return response;
     }
 }

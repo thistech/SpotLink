@@ -17,21 +17,15 @@ package com.thistech.spotlink.engine;
  * All Rights Reserved.
  */
 
-import com.thistech.spotlink.model.Ad;
-import com.thistech.spotlink.model.MediaFile;
-import com.thistech.spotlink.model.TrackingEvents;
-import org.apache.http.client.methods.HttpPost;
+import com.thistech.spotlink.TestHelper;
 import org.scte.schemas._130_3._2008a.adm.PlacementDecisionType;
 import org.scte.schemas._130_3._2008a.adm.PlacementRequestType;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 public class TestableDecisionEngine extends AbstractPlacementDecisionEngine implements PlacementDecisionEngine {
-
-    public final static int COLLECTION_SIZE = 6;
 
     @Override
     public URI getEndpoint() {
@@ -44,47 +38,7 @@ public class TestableDecisionEngine extends AbstractPlacementDecisionEngine impl
 
     @Override
     public List<PlacementDecisionType> getPlacementDecisions(PlacementRequestType placementRequest) {
-        return this.fillPlacementRequest(placementRequest, TestableDecisionEngine.buildAdList());
+        return this.fillPlacementRequest(placementRequest, TestHelper.buildAdList());
     }
 
-    public static List<Ad> buildAdList() {
-        List<Ad> adList = new ArrayList<Ad>(COLLECTION_SIZE);
-
-        for (int i = 0; i < COLLECTION_SIZE; i++) {
-            Ad ad = new Ad();
-            ad.setMediaFiles(TestableDecisionEngine.buildMediaFilesList());
-            ad.setTrackingEvents(TestableDecisionEngine.buildTrackingEvents());
-            adList.add(ad);
-        }
-
-        return adList;
-    }
-
-    public static TrackingEvents buildTrackingEvents() {
-        TrackingEvents events = new TrackingEvents();
-        events.setId("TrackingEvents!");
-
-        for (int i = 0; i < COLLECTION_SIZE; i++) {
-            events.addEventUrl(String.format("event_%s", i), String.format("http://www.url.com/%s", i));
-        }
-
-        return events;
-    }
-
-    public static List<MediaFile> buildMediaFilesList() {
-        List<MediaFile> mediaFiles = new ArrayList<MediaFile>(COLLECTION_SIZE);
-
-        for (int i = 0; i < COLLECTION_SIZE; i++) {
-            MediaFile mediaFile = new MediaFile();
-            mediaFile.setProviderId(String.format("ProviderID_%s", i));
-            mediaFile.setAssetId(String.format("AssetID_%s", i));
-            mediaFile.setHeight(480 + i);
-            mediaFile.setWidth(640 + i);
-            mediaFile.setType(String.format("Type_%s", i));
-            mediaFile.setUrl(String.format("http://www.url.com/%s", i));
-            mediaFiles.add(mediaFile);
-        }
-
-        return mediaFiles;
-    }
 }

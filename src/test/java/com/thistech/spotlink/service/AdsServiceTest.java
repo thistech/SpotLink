@@ -17,25 +17,24 @@ package com.thistech.spotlink.service;
  * All Rights Reserved.
  */
 
-import com.thistech.schemasupport.scte130.builder.core.StatusCodeBuilder;
 import com.thistech.spotlink.AbstractSpotlinkTest;
 import com.thistech.spotlink.engine.PlacementDecisionEngine;
+import com.thistech.spotlink.engine.TrackingEngine;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.scte.schemas._130_2._2008a.core.ServiceCheckRequestType;
 import org.scte.schemas._130_2._2008a.core.ServiceCheckResponseType;
-import org.scte.schemas._130_3._2008a.adm.PlacementRequestType;
-import org.scte.schemas._130_3._2008a.adm.PlacementResponseType;
-import org.scte.schemas._130_3._2008a.adm.PlacementStatusAcknowledgementType;
-import org.scte.schemas._130_3._2008a.adm.PlacementStatusNotificationType;
+import org.scte.schemas._130_3._2008a.adm.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import javax.xml.bind.JAXBElement;
 import java.io.StringReader;
+import java.util.UUID;
+
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.*;
 
 public class AdsServiceTest extends AbstractSpotlinkTest {
 
@@ -44,12 +43,12 @@ public class AdsServiceTest extends AbstractSpotlinkTest {
     @Mock
     private PlacementDecisionEngine mockPlacementDecisionEngine = null;
     @Mock
-    private ITrackingService mockTrackingService = null;
+    private TrackingEngine mockTrackingEngine = null;
 
     @BeforeTest
     public void setupTest() {
         this.adsService = new AdsService("identity", "system", "version");
-        MockitoAnnotations.initMocks(this);
+        initMocks(this);
     }
 
     @Test
@@ -58,7 +57,7 @@ public class AdsServiceTest extends AbstractSpotlinkTest {
         PlacementResponseType samplePlacementResponse =
                 (PlacementResponseType) this.unmarshal(this.getClass(), "/sample_placement_response.xml");
 
-        Mockito.when(this.mockPlacementDecisionEngine.getPlacementDecisions(Mockito.<PlacementRequestType>any()))
+        when(this.mockPlacementDecisionEngine.getPlacementDecisions(any(PlacementRequestType.class)))
                 .thenReturn(samplePlacementResponse.getPlacementDecision());
 
         PlacementResponseType placementResponse = this.adsService.placementRequest(
