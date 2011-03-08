@@ -84,16 +84,10 @@ public class AdsService implements ADS {
     }
 
     public PlacementStatusAcknowledgementType placementStatusNotification(PlacementStatusNotificationType notification) {
-        for (PlayDataType playData : notification.getPlayData()) {
-            for (Object obj : playData.getEvents().getPlacementStatusEventOrSessionEventOrSystemEvent()) {
-                if(obj instanceof PlacementStatusEventType) {
-                    this.trackingEngine.trackEvent((PlacementStatusEventType) obj);
-                }
-            }
-        }
+        String messageId = this.trackingEngine.track(notification);
 
         return (PlacementStatusAcknowledgementType) new PlacementStatusAckBuilder(notification)
-                .withMessageId(getMessageId())
+                .withMessageId(messageId)
                 .withIdentity(identity)
                 .withSystem(system)
                 .withVersion(version)
@@ -120,6 +114,7 @@ public class AdsService implements ADS {
 
     /**
      * Generage a message id.
+     *
      * @return The message id
      */
     protected String getMessageId() {

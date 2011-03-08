@@ -19,15 +19,11 @@ package com.thistech.spotlink.engine;
 
 import com.thistech.spotlink.model.TrackingEvents;
 import com.thistech.spotlink.persistence.ITrackingEventsDao;
-import org.scte.schemas._130_3._2008a.adm.EventBaseType;
-import org.scte.schemas._130_3._2008a.adm.PlacementStatusEventType;
-import org.scte.schemas._130_3._2008a.adm.PlacementStatusNotificationType;
-import org.scte.schemas._130_3._2008a.adm.PlayDataType;
+import org.apache.commons.lang.StringUtils;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Properties;
-import java.util.UUID;
 
 public abstract class AbstractCachingTrackingEngine implements TrackingEngine {
     @Resource(name = "com.thistech.spotlink.TrackingEventsDao")
@@ -45,6 +41,6 @@ public abstract class AbstractCachingTrackingEngine implements TrackingEngine {
 
     @Override
     public TrackingEvents getTrackingEvents(String trackingId) {
-        return this.trackingEventsDao.get(trackingId);
+        return this.trackingEventsDao.get(StringUtils.upperCase(trackingId));
     }
 }

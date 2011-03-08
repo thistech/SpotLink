@@ -17,13 +17,13 @@
 
 package com.thistech.spotlink.engine;
 
-import org.scte.schemas._130_3._2008a.adm.PlacementStatusEventType;
+import org.scte.schemas._130_3._2008a.adm.PlacementStatusNotificationType;
 
 import java.io.Serializable;
 
 public interface TrackingEngine {
 
-    void trackEvent(PlacementStatusEventType placementStatusEvent);
+    String track(PlacementStatusNotificationType psn);
 
     void saveTrackingEvents(Serializable trackingEvents);
 

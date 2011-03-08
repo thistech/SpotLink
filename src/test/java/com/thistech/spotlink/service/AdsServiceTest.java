@@ -24,8 +24,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.scte.schemas._130_2._2008a.core.ServiceCheckRequestType;
 import org.scte.schemas._130_2._2008a.core.ServiceCheckResponseType;
-import org.scte.schemas._130_3._2008a.adm.*;
-import org.testng.Assert;
+import org.scte.schemas._130_3._2008a.adm.PlacementRequestType;
+import org.scte.schemas._130_3._2008a.adm.PlacementResponseType;
+import org.scte.schemas._130_3._2008a.adm.PlacementStatusAcknowledgementType;
+import org.scte.schemas._130_3._2008a.adm.PlacementStatusNotificationType;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -33,8 +35,11 @@ import javax.xml.bind.JAXBElement;
 import java.io.StringReader;
 import java.util.UUID;
 
-import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
 public class AdsServiceTest extends AbstractSpotlinkTest {
 
@@ -63,37 +68,39 @@ public class AdsServiceTest extends AbstractSpotlinkTest {
         PlacementResponseType placementResponse = this.adsService.placementRequest(
                 (PlacementRequestType) this.unmarshal(this.getClass(), "/sample_placement_request.xml"));
 
-        Assert.assertNotNull(placementResponse);
-        Assert.assertNotNull(placementResponse.getStatusCode());
-        Assert.assertNotNull(placementResponse.getMessageRef());
-        Assert.assertEquals("identity", placementResponse.getIdentity());
-        Assert.assertEquals("system", placementResponse.getSystem());
-        Assert.assertEquals("version", placementResponse.getVersion());
-        Assert.assertEquals(6, placementResponse.getPlacementDecision().size());
+        assertNotNull(placementResponse);
+        assertNotNull(placementResponse.getStatusCode());
+        assertNotNull(placementResponse.getMessageRef());
+        assertEquals("identity", placementResponse.getIdentity());
+        assertEquals("system", placementResponse.getSystem());
+        assertEquals("version", placementResponse.getVersion());
+        assertEquals(6, placementResponse.getPlacementDecision().size());
 //TODO:        Assert.assertNotNull(placementResponse.getADMData());
-        Assert.assertNotNull(placementResponse.getClient());
-        Assert.assertNotNull(placementResponse.getEntertainment());
+        assertNotNull(placementResponse.getClient());
+        assertNotNull(placementResponse.getEntertainment());
 //TODO:        Assert.assertNotNull(placementResponse.getInitiatorData());
-        Assert.assertNotNull(placementResponse.getService());
-        Assert.assertNotNull(placementResponse.getSystemContext());
-        Assert.assertNotNull(placementResponse.getMessageId());
+        assertNotNull(placementResponse.getService());
+        assertNotNull(placementResponse.getSystemContext());
+        assertNotNull(placementResponse.getMessageId());
     }
 
 
     @Test
     public void testPlacementStatusNotification() {
+        when(this.mockTrackingEngine.track(any(PlacementStatusNotificationType.class)))
+                .thenReturn(UUID.randomUUID().toString());
         PlacementStatusNotificationType psn = (PlacementStatusNotificationType)
                 this.unmarshal(this.getClass(), "/sample_placement_status_notification.xml");
 
         PlacementStatusAcknowledgementType ack = this.adsService.placementStatusNotification(psn);
-        Assert.assertNotNull(ack);
-        Assert.assertNotNull(ack.getIdentity());
+        assertNotNull(ack);
+        assertNotNull(ack.getIdentity());
 //TODO:        Assert.assertNotNull(ack.getInitiatorData());
-        Assert.assertNotNull(ack.getMessageRef());
-        Assert.assertNotNull(ack.getMessageId());
-        Assert.assertEquals("identity", ack.getIdentity());
-        Assert.assertEquals("system", ack.getSystem());
-        Assert.assertEquals("version", ack.getVersion());
+        assertNotNull(ack.getMessageRef());
+        assertNotNull(ack.getMessageId());
+        assertEquals("identity", ack.getIdentity());
+        assertEquals("system", ack.getSystem());
+        assertEquals("version", ack.getVersion());
     }
 
     @Test
@@ -110,13 +117,13 @@ public class AdsServiceTest extends AbstractSpotlinkTest {
                         .unmarshal(new StringReader(message))).getValue();
 
         ServiceCheckResponseType serviceCheckResponse = this.adsService.serviceCheckRequest(serviceCheckRequest);
-        Assert.assertNotNull(serviceCheckResponse);
-        Assert.assertNotNull(serviceCheckResponse.getIdentity());
+        assertNotNull(serviceCheckResponse);
+        assertNotNull(serviceCheckResponse.getIdentity());
 //TODO:        Assert.assertNotNull(serviceCheckResponse.getInitiatorData());
-        Assert.assertNotNull(serviceCheckResponse.getMessageRef());
-        Assert.assertNotNull(serviceCheckResponse.getMessageId());
-        Assert.assertEquals("identity", serviceCheckResponse.getIdentity());
-        Assert.assertEquals("system", serviceCheckResponse.getSystem());
-        Assert.assertEquals("version", serviceCheckResponse.getVersion());
+        assertNotNull(serviceCheckResponse.getMessageRef());
+        assertNotNull(serviceCheckResponse.getMessageId());
+        assertEquals("identity", serviceCheckResponse.getIdentity());
+        assertEquals("system", serviceCheckResponse.getSystem());
+        assertEquals("version", serviceCheckResponse.getVersion());
     }
 }

@@ -27,6 +27,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.scte.schemas._130_3._2008a.adm.PlacementStatusNotificationType;
 import org.testng.annotations.Test;
 
 import java.util.Properties;
@@ -55,7 +56,10 @@ public class TrackingEngineTest extends AbstractSpotlinkTest {
         when(this.mockHttpClient.execute(any(HttpUriRequest.class)))
                 .thenReturn(this.prepareResponse(HttpStatus.SC_OK, "someBody"));
 
-        this.trackingEngine.trackEvent(TestHelper.buildStatusEvent());
+        PlacementStatusNotificationType psn =
+                (PlacementStatusNotificationType) this.unmarshal(this.getClass(), "/sample_placement_status_notification.xml");
+
+        this.trackingEngine.track(psn);
     }
 
     @Test
@@ -67,7 +71,10 @@ public class TrackingEngineTest extends AbstractSpotlinkTest {
         when(this.mockHttpClient.execute(any(HttpUriRequest.class)))
                 .thenReturn(this.prepareResponse(HttpStatus.SC_BAD_REQUEST, "BadRequest"));
 
-        this.trackingEngine.trackEvent(TestHelper.buildStatusEvent());
+        PlacementStatusNotificationType psn =
+                (PlacementStatusNotificationType) this.unmarshal(this.getClass(), "/sample_placement_status_notification.xml");
+
+        this.trackingEngine.track(psn);
     }
 
     @Test
@@ -75,7 +82,10 @@ public class TrackingEngineTest extends AbstractSpotlinkTest {
         this.trackingEngine = new HttpTrackingEngine(this.properties);
         initMocks(this);
 
-        this.trackingEngine.trackEvent(TestHelper.buildStatusEvent());
+        PlacementStatusNotificationType psn =
+                (PlacementStatusNotificationType) this.unmarshal(this.getClass(), "/sample_placement_status_notification.xml");
+
+        this.trackingEngine.track(psn);
     }
 
     @Test
@@ -87,7 +97,10 @@ public class TrackingEngineTest extends AbstractSpotlinkTest {
         when(this.mockHttpClient.execute(any(HttpUriRequest.class)))
                 .thenReturn(this.prepareResponse(HttpStatus.SC_BAD_REQUEST, "BadRequest"));
 
-        this.trackingEngine.trackEvent(TestHelper.buildStatusEvent());
+        PlacementStatusNotificationType psn =
+                (PlacementStatusNotificationType) this.unmarshal(this.getClass(), "/sample_placement_status_notification.xml");
+
+        this.trackingEngine.track(psn);
     }
 
     @Test
@@ -98,6 +111,9 @@ public class TrackingEngineTest extends AbstractSpotlinkTest {
         when(this.mockTrackingEventsDao.get(anyString())).thenReturn(TestHelper.buildTrackingEvents());
         when(this.mockHttpClient.execute(any(HttpUriRequest.class))).thenThrow(new RuntimeException());
 
-        this.trackingEngine.trackEvent(TestHelper.buildStatusEvent());
+        PlacementStatusNotificationType psn =
+                (PlacementStatusNotificationType) this.unmarshal(this.getClass(), "/sample_placement_status_notification.xml");
+
+        this.trackingEngine.track(psn);
     }
 }
