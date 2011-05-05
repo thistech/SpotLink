@@ -1,5 +1,6 @@
 package com.thistech.spotlink.engine;
 
+import com.thistech.spotlink.model.RequestContext;
 import org.scte.schemas._130_3._2008a.adm.PlacementDecisionType;
 import org.scte.schemas._130_3._2008a.adm.PlacementRequestType;
 
@@ -14,8 +15,10 @@ public interface PlacementDecisionEngine {
 
     /**
      * Get the List of Placements for a PlacementRequest
+     *
      * @param placementRequest The PlacementRequest
      * @return The Placements
      */
-    List<PlacementDecisionType> getPlacementDecisions(PlacementRequestType placementRequest);
+    List<PlacementDecisionType> getPlacementDecisions(PlacementRequestType placementRequest,
+                                                      RequestContext requestContext);
 }

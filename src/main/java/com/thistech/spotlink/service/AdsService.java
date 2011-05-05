@@ -24,6 +24,7 @@ import com.thistech.schemasupport.scte130.builder.core.ServiceCheckResponseBuild
 import com.thistech.schemasupport.scte130.builder.core.ServiceStatusAckBuilder;
 import com.thistech.spotlink.engine.PlacementDecisionEngine;
 import com.thistech.spotlink.engine.TrackingEngine;
+import com.thistech.spotlink.model.RequestContext;
 import org.scte.schemas._130_2._2008a.core.ServiceCheckRequestType;
 import org.scte.schemas._130_2._2008a.core.ServiceCheckResponseType;
 import org.scte.schemas._130_2._2008a.core.ServiceStatusAcknowledgementType;
@@ -38,7 +39,8 @@ import javax.jws.WebService;
 import java.util.List;
 import java.util.UUID;
 
-@WebService(serviceName = "ADSService", portName = "ADSPort", endpointInterface = "org.scte.wsdl._130_3._2010.ads.ADS", targetNamespace = "http://www.scte.org/wsdl/130-3/2010/ads", wsdlLocation = "/wsdl/ads_2010.wsdl")
+@WebService(serviceName = "ADSService", portName = "ADSPort", endpointInterface = "org.scte.wsdl._130_3._2010.ads.ADS",
+            targetNamespace = "http://www.scte.org/wsdl/130-3/2010/ads", wsdlLocation = "/wsdl/ads_2010.wsdl")
 @SuppressWarnings("SpringJavaAutowiringInspection")
 public class AdsService implements ADS {
     private static final Logger log = LoggerFactory.getLogger(AdsService.class);
@@ -58,7 +60,8 @@ public class AdsService implements ADS {
         this.version = version;
     }
 
-    public ADSDeregistrationAcknowledgementType adsDeregistrationNotification(ADSDeregistrationNotificationType notification) {
+    public ADSDeregistrationAcknowledgementType adsDeregistrationNotification(
+            ADSDeregistrationNotificationType notification) {
         return (ADSDeregistrationAcknowledgementType) new AdsDeregistrationAckBuilder(notification)
                 .withMessageId(getMessageId())
                 .withIdentity(identity)
@@ -68,9 +71,13 @@ public class AdsService implements ADS {
     }
 
     public PlacementResponseType placementRequest(PlacementRequestType placementRequest) {
-        List<PlacementDecisionType> placementDecisions = placementDecisionEngine.getPlacementDecisions(placementRequest);
+        RequestContext requestContext = new RequestContext(placementRequest.getIdentity(),
+                                                           placementRequest.getMessageId());
+        List<PlacementDecisionType> placementDecisions = placementDecisionEngine.getPlacementDecisions(placementRequest,
+                                                                                                       requestContext);
 
-        PlacementResponseBuilder placementResponseBuilder = (PlacementResponseBuilder) new PlacementResponseBuilder(placementRequest)
+        PlacementResponseBuilder placementResponseBuilder = (PlacementResponseBuilder) new PlacementResponseBuilder(
+                placementRequest)
                 .withMessageId(getMessageId())
                 .withIdentity(identity)
                 .withSystem(system)
@@ -83,7 +90,8 @@ public class AdsService implements ADS {
         return placementResponseBuilder.build();
     }
 
-    public PlacementStatusAcknowledgementType placementStatusNotification(PlacementStatusNotificationType notification) {
+    public PlacementStatusAcknowledgementType placementStatusNotification(
+            PlacementStatusNotificationType notification) {
         String messageId = this.trackingEngine.track(notification);
 
         return (PlacementStatusAcknowledgementType) new PlacementStatusAckBuilder(notification)

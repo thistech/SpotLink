@@ -20,6 +20,7 @@ package com.thistech.spotlink.service;
 import com.thistech.spotlink.AbstractSpotlinkTest;
 import com.thistech.spotlink.engine.PlacementDecisionEngine;
 import com.thistech.spotlink.engine.TrackingEngine;
+import com.thistech.spotlink.model.RequestContext;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.scte.schemas._130_2._2008a.core.ServiceCheckRequestType;
@@ -62,7 +63,8 @@ public class AdsServiceTest extends AbstractSpotlinkTest {
         PlacementResponseType samplePlacementResponse =
                 (PlacementResponseType) this.unmarshal(this.getClass(), "/sample_placement_response.xml");
 
-        when(this.mockPlacementDecisionEngine.getPlacementDecisions(any(PlacementRequestType.class)))
+        when(this.mockPlacementDecisionEngine.getPlacementDecisions(any(PlacementRequestType.class),
+                                                                    any(RequestContext.class)))
                 .thenReturn(samplePlacementResponse.getPlacementDecision());
 
         PlacementResponseType placementResponse = this.adsService.placementRequest(
@@ -75,10 +77,10 @@ public class AdsServiceTest extends AbstractSpotlinkTest {
         assertEquals("system", placementResponse.getSystem());
         assertEquals("version", placementResponse.getVersion());
         assertEquals(6, placementResponse.getPlacementDecision().size());
-//TODO:        Assert.assertNotNull(placementResponse.getADMData());
+        //TODO:        Assert.assertNotNull(placementResponse.getADMData());
         assertNotNull(placementResponse.getClient());
         assertNotNull(placementResponse.getEntertainment());
-//TODO:        Assert.assertNotNull(placementResponse.getInitiatorData());
+        //TODO:        Assert.assertNotNull(placementResponse.getInitiatorData());
         assertNotNull(placementResponse.getService());
         assertNotNull(placementResponse.getSystemContext());
         assertNotNull(placementResponse.getMessageId());
@@ -95,7 +97,7 @@ public class AdsServiceTest extends AbstractSpotlinkTest {
         PlacementStatusAcknowledgementType ack = this.adsService.placementStatusNotification(psn);
         assertNotNull(ack);
         assertNotNull(ack.getIdentity());
-//TODO:        Assert.assertNotNull(ack.getInitiatorData());
+        //TODO:        Assert.assertNotNull(ack.getInitiatorData());
         assertNotNull(ack.getMessageRef());
         assertNotNull(ack.getMessageId());
         assertEquals("identity", ack.getIdentity());
@@ -114,12 +116,13 @@ public class AdsServiceTest extends AbstractSpotlinkTest {
 
         ServiceCheckRequestType serviceCheckRequest =
                 (ServiceCheckRequestType) ((JAXBElement) this.jaxbContext.createUnmarshaller()
-                        .unmarshal(new StringReader(message))).getValue();
+                                                                         .unmarshal(
+                                                                                 new StringReader(message))).getValue();
 
         ServiceCheckResponseType serviceCheckResponse = this.adsService.serviceCheckRequest(serviceCheckRequest);
         assertNotNull(serviceCheckResponse);
         assertNotNull(serviceCheckResponse.getIdentity());
-//TODO:        Assert.assertNotNull(serviceCheckResponse.getInitiatorData());
+        //TODO:        Assert.assertNotNull(serviceCheckResponse.getInitiatorData());
         assertNotNull(serviceCheckResponse.getMessageRef());
         assertNotNull(serviceCheckResponse.getMessageId());
         assertEquals("identity", serviceCheckResponse.getIdentity());

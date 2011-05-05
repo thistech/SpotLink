@@ -18,6 +18,7 @@ package com.thistech.spotlink.engine;
  */
 
 import com.thistech.spotlink.TestHelper;
+import com.thistech.spotlink.model.RequestContext;
 import org.scte.schemas._130_3._2008a.adm.PlacementDecisionType;
 import org.scte.schemas._130_3._2008a.adm.PlacementRequestType;
 
@@ -37,7 +38,8 @@ public class TestableDecisionEngine extends AbstractPlacementDecisionEngine impl
     }
 
     @Override
-    public List<PlacementDecisionType> getPlacementDecisions(PlacementRequestType placementRequest) {
+    public List<PlacementDecisionType> getPlacementDecisions(PlacementRequestType placementRequest,
+                                                             RequestContext requestContext) {
         return this.fillPlacementRequest(placementRequest, TestHelper.buildAdList());
     }
 
