@@ -24,6 +24,7 @@ import com.thistech.schemasupport.scte130.builder.core.ServiceCheckResponseBuild
 import com.thistech.schemasupport.scte130.builder.core.ServiceStatusAckBuilder;
 import com.thistech.spotlink.engine.PlacementDecisionEngine;
 import com.thistech.spotlink.engine.TrackingEngine;
+import com.thistech.spotlink.model.BasicRequestContext;
 import com.thistech.spotlink.model.RequestContext;
 import org.scte.schemas._130_2._2008a.core.ServiceCheckRequestType;
 import org.scte.schemas._130_2._2008a.core.ServiceCheckResponseType;
@@ -71,8 +72,8 @@ public class AdsService implements ADS {
     }
 
     public PlacementResponseType placementRequest(PlacementRequestType placementRequest) {
-        RequestContext requestContext = new RequestContext(placementRequest.getIdentity(),
-                                                           placementRequest.getMessageId());
+        RequestContext requestContext = new BasicRequestContext(placementRequest.getIdentity(),
+                                                                placementRequest.getMessageId());
         List<PlacementDecisionType> placementDecisions = placementDecisionEngine.getPlacementDecisions(placementRequest,
                                                                                                        requestContext);
 

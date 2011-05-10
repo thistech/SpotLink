@@ -21,7 +21,7 @@ import com.thistech.schemasupport.scte130.util.ObjectFactoryProxy;
 import com.thistech.spotlink.AbstractSpotlinkTest;
 import com.thistech.spotlink.SpotLinkException;
 import com.thistech.spotlink.TestHelper;
-import com.thistech.spotlink.model.RequestContext;
+import com.thistech.spotlink.model.BasicRequestContext;
 import org.apache.http.client.methods.HttpPost;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -71,7 +71,7 @@ public class PlacementDecisionEngineTest extends AbstractSpotlinkTest {
                 (PlacementRequestType) this.unmarshal(this.getClass(), "/sample_placement_request.xml");
         List<PlacementDecisionType> decisions =
                 this.placementDecisionEngine.getPlacementDecisions(placementRequest,
-                                                                   new RequestContext("unitTest", "12345"));
+                                                                   new BasicRequestContext("unitTest", "12345"));
 
         assertTrue(6 == decisions.size(), "Expecting 6 placement decisions");
 
@@ -101,7 +101,8 @@ public class PlacementDecisionEngineTest extends AbstractSpotlinkTest {
         assertEquals(this.placementDecisionEngine.getEndpoint(), post.getURI());
         try {
             assertNotNull(post.getEntity().getContent());
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             fail();
         }
 

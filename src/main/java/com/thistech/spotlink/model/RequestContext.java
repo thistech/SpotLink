@@ -17,57 +17,62 @@ package com.thistech.spotlink.model;
  * All Rights Reserved.
  */
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
+ * Interface to instruct objects on how to maintain data relevant to a PlacementRequest during its SpotLink lifetime.
+ *
  * @author <a href="mailto:matt@thistech.com">Matt Narrell</a>
- *         Created on: 5/5/11
+ *         Created on: 5/10/11
  */
-public class RequestContext {
+public interface RequestContext {
 
-    private final Date requestTime = new Date();
-    private final UUID uuid = UUID.randomUUID();
-    private Map<String, Object> attributes = new HashMap<String, Object>();
-    private List<TrackingEvents> trackingData = new LinkedList<TrackingEvents>();
-    private String originatorMessageId = null;
-    private String originatorIdentity = null;
+    /**
+     * @return The message id of the originating message.
+     */
+    String getOriginatorMessageId();
 
-    public RequestContext(String originatorIdentity, String originatorMessageId) {
-        this.originatorIdentity = originatorIdentity;
-        this.originatorMessageId = originatorMessageId;
-    }
+    /**
+     * @return The identity attribute of the originating message.
+     */
+    String getOriginatorIdentity();
 
-    public String getOriginatorMessageId() {
-        return this.originatorMessageId;
-    }
+    /**
+     * @return The {@link Date} of the incoming PlacementRequest.
+     */
+    Date getRequestTime();
 
-    public String getOriginatorIdentity() {
-        return this.originatorIdentity;
-    }
+    /**
+     * @return An identifier of this PlacementRequest.
+     */
+    String getId();
 
-    public RequestContext addTrackingData(TrackingEvents trackingEvents) {
-        this.trackingData.add(trackingEvents);
-        return this;
-    }
+    /**
+     * Puts an arbitrary object into the attribute map.
+     *
+     * @param key - The key of the {@link Map.Entry}
+     * @param value - The value of the {@link Map.Entry}
+     * @return - This {@code RequestContext} implementation.
+     */
+    RequestContext addAttribute(String key, Object value);
 
-    public List<TrackingEvents> getTrackingData() {
-        return trackingData;
-    }
+    /**
+     * @return The entire map of request attributes.
+     */
+    Map<String, Object> getAttributes();
 
-    public Date getRequestTime() {
-        return this.requestTime;
-    }
+    /**
+     * Adds a populated {@link TrackingEvents} object to the {@code RequestContext} implementation.
+     * @param trackingEvents  - The populated {@link TrackingEvents}
+     * @return - This {@code RequestContext} implementation.
+     */
+    RequestContext addTrackingData(TrackingEvents trackingEvents);
 
-    public UUID getUuid() {
-        return this.uuid;
-    }
-
-    public RequestContext addAttribute(String key, Object value) {
-        this.attributes.put(key, value);
-        return this;
-    }
-
-    public Map<String, Object> getAttributes() {
-        return this.attributes;
-    }
+    /**
+     * @return - The assigned {@link List} of {@link TrackingEvents}.
+     */
+    List<TrackingEvents> getTrackingData();
 }

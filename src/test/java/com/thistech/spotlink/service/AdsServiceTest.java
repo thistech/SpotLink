@@ -20,7 +20,7 @@ package com.thistech.spotlink.service;
 import com.thistech.spotlink.AbstractSpotlinkTest;
 import com.thistech.spotlink.engine.PlacementDecisionEngine;
 import com.thistech.spotlink.engine.TrackingEngine;
-import com.thistech.spotlink.model.RequestContext;
+import com.thistech.spotlink.model.BasicRequestContext;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.scte.schemas._130_2._2008a.core.ServiceCheckRequestType;
@@ -64,7 +64,7 @@ public class AdsServiceTest extends AbstractSpotlinkTest {
                 (PlacementResponseType) this.unmarshal(this.getClass(), "/sample_placement_response.xml");
 
         when(this.mockPlacementDecisionEngine.getPlacementDecisions(any(PlacementRequestType.class),
-                                                                    any(RequestContext.class)))
+                                                                    any(BasicRequestContext.class)))
                 .thenReturn(samplePlacementResponse.getPlacementDecision());
 
         PlacementResponseType placementResponse = this.adsService.placementRequest(
