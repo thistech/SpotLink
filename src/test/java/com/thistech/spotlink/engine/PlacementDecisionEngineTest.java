@@ -22,6 +22,7 @@ import com.thistech.spotlink.AbstractSpotlinkTest;
 import com.thistech.spotlink.SpotLinkException;
 import com.thistech.spotlink.TestHelper;
 import com.thistech.spotlink.model.BasicRequestContext;
+import com.thistech.spotlink.model.RequestContext;
 import org.apache.http.client.methods.HttpPost;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -69,9 +70,11 @@ public class PlacementDecisionEngineTest extends AbstractSpotlinkTest {
 
         PlacementRequestType placementRequest =
                 (PlacementRequestType) this.unmarshal(this.getClass(), "/sample_placement_request.xml");
+        RequestContext requestContext = new BasicRequestContext()
+                .setOriginatorIdentity("unit-test")
+                .setOriginatorIdentity("12345");
         List<PlacementDecisionType> decisions =
-                this.placementDecisionEngine.getPlacementDecisions(placementRequest,
-                                                                   new BasicRequestContext("unitTest", "12345"));
+                this.placementDecisionEngine.getPlacementDecisions(placementRequest, requestContext);
 
         assertTrue(6 == decisions.size(), "Expecting 6 placement decisions");
 

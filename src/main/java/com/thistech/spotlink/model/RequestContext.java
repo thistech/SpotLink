@@ -20,7 +20,6 @@ package com.thistech.spotlink.model;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Interface to instruct objects on how to maintain data relevant to a PlacementRequest during its SpotLink lifetime.
@@ -53,7 +52,7 @@ public interface RequestContext {
     /**
      * Puts an arbitrary object into the attribute map.
      *
-     * @param key - The key of the {@link Map.Entry}
+     * @param key   - The key of the {@link Map.Entry}
      * @param value - The value of the {@link Map.Entry}
      * @return - This {@code RequestContext} implementation.
      */
@@ -66,7 +65,8 @@ public interface RequestContext {
 
     /**
      * Adds a populated {@link TrackingEvents} object to the {@code RequestContext} implementation.
-     * @param trackingEvents  - The populated {@link TrackingEvents}
+     *
+     * @param trackingEvents - The populated {@link TrackingEvents}
      * @return - This {@code RequestContext} implementation.
      */
     RequestContext addTrackingData(TrackingEvents trackingEvents);
@@ -75,4 +75,36 @@ public interface RequestContext {
      * @return - The assigned {@link List} of {@link TrackingEvents}.
      */
     List<TrackingEvents> getTrackingData();
+
+    /**
+     * Allows for overriding the entire attribute map.
+     *
+     * @param attributes - The attribute map to replace.
+     * @return - This {@code RequestContext} implementation.
+     */
+    RequestContext setAttributes(Map<String, Object> attributes);
+
+    /**
+     * Allows for overriding of the entire {@link TrackingEvents} List.
+     *
+     * @param trackingData - List of {@link TrackingEvents} to replace.
+     * @return - This {@code RequestContext} implementation.
+     */
+    RequestContext setTrackingData(List<TrackingEvents> trackingData);
+
+    /**
+     * Setter
+     *
+     * @param originatorMessageId - The message id value.
+     * @return - This {@code RequestContext} implementation.
+     */
+    RequestContext setOriginatorMessageId(String originatorMessageId);
+
+    /**
+     * Setter
+     *
+     * @param originatorIdentity - The identity value.
+     * @return - This {@code RequestContext} implementation.
+     */
+    RequestContext setOriginatorIdentity(String originatorIdentity);
 }

@@ -34,11 +34,6 @@ public class BasicRequestContext implements RequestContext {
     private String originatorMessageId = null;
     private String originatorIdentity = null;
 
-    public BasicRequestContext(String originatorIdentity, String originatorMessageId) {
-        this.originatorIdentity = originatorIdentity;
-        this.originatorMessageId = originatorMessageId;
-    }
-
     /**
      * @see com.thistech.spotlink.model.RequestContext#getOriginatorMessageId()
      */
@@ -53,6 +48,42 @@ public class BasicRequestContext implements RequestContext {
     @Override
     public String getOriginatorIdentity() {
         return this.originatorIdentity;
+    }
+
+    /**
+     * @see com.thistech.spotlink.model.RequestContext#setAttributes(java.util.Map)
+     */
+    @Override
+    public RequestContext setAttributes(Map<String, Object> attributes) {
+        this.attributes = attributes;
+        return this;
+    }
+
+    /**
+     * @see com.thistech.spotlink.model.RequestContext#setTrackingData(java.util.List)
+     */
+    @Override
+    public RequestContext setTrackingData(List<TrackingEvents> trackingData) {
+        this.trackingData = trackingData;
+        return this;
+    }
+
+    /**
+     * @see com.thistech.spotlink.model.RequestContext#setOriginatorMessageId(String)
+     */
+    @Override
+    public RequestContext setOriginatorMessageId(String originatorMessageId) {
+        this.originatorMessageId = originatorMessageId;
+        return this;
+    }
+
+    /**
+     * @see com.thistech.spotlink.model.RequestContext#setOriginatorIdentity(String)
+     */
+    @Override
+    public RequestContext setOriginatorIdentity(String originatorIdentity) {
+        this.originatorIdentity = originatorIdentity;
+        return this;
     }
 
     /**

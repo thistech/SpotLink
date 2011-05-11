@@ -72,8 +72,10 @@ public class AdsService implements ADS {
     }
 
     public PlacementResponseType placementRequest(PlacementRequestType placementRequest) {
-        RequestContext requestContext = new BasicRequestContext(placementRequest.getIdentity(),
-                                                                placementRequest.getMessageId());
+        RequestContext requestContext = new BasicRequestContext()
+                .setOriginatorIdentity(placementRequest.getIdentity())
+                .setOriginatorMessageId(placementRequest.getMessageId());
+
         List<PlacementDecisionType> placementDecisions = placementDecisionEngine.getPlacementDecisions(placementRequest,
                                                                                                        requestContext);
 
