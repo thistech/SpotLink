@@ -64,15 +64,15 @@ public interface RequestContext {
     Map<String, Object> getAttributes();
 
     /**
-     * Adds a populated {@link TrackingEvents} object to the {@code RequestContext} implementation.
+     * Adds a populated {@link BasicTrackingEvents} object to the {@code RequestContext} implementation.
      *
-     * @param trackingEvents - The populated {@link TrackingEvents}
+     * @param trackingEvents - The populated {@link BasicTrackingEvents}
      * @return - This {@code RequestContext} implementation.
      */
     RequestContext addTrackingData(TrackingEvents trackingEvents);
 
     /**
-     * @return - The assigned {@link List} of {@link TrackingEvents}.
+     * @return - The assigned {@link List} of {@link BasicTrackingEvents}.
      */
     List<TrackingEvents> getTrackingData();
 
@@ -85,9 +85,9 @@ public interface RequestContext {
     RequestContext setAttributes(Map<String, Object> attributes);
 
     /**
-     * Allows for overriding of the entire {@link TrackingEvents} List.
+     * Allows for overriding of the entire {@link BasicTrackingEvents} List.
      *
-     * @param trackingData - List of {@link TrackingEvents} to replace.
+     * @param trackingData - List of {@link BasicTrackingEvents} to replace.
      * @return - This {@code RequestContext} implementation.
      */
     RequestContext setTrackingData(List<TrackingEvents> trackingData);

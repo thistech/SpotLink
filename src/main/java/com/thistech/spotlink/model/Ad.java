@@ -33,7 +33,7 @@ public class Ad implements Serializable {
     public Ad setMediaFiles(List<MediaFile> value) { this.mediaFiles = value; return this; }
 
     public TrackingEvents getTrackingEvents() {
-        if (trackingEvents == null) { trackingEvents = new TrackingEvents(); }
+        if (trackingEvents == null) { trackingEvents = new BasicTrackingEvents(); }
         return trackingEvents;
     }
     public Ad setTrackingEvents(TrackingEvents value) { this.trackingEvents = value; return this; }

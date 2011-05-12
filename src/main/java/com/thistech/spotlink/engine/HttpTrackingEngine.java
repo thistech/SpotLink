@@ -18,6 +18,7 @@
 package com.thistech.spotlink.engine;
 
 import com.thistech.spotlink.model.TrackingEvents;
+import com.thistech.spotlink.persistence.TrackingEventsDao;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -31,17 +32,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
+import java.io.Serializable;
 import java.util.Properties;
 import java.util.UUID;
 
-public final class HttpTrackingEngine extends AbstractCachingTrackingEngine implements TrackingEngine {
+public class HttpTrackingEngine implements TrackingEngine {
     private static final Logger log = LoggerFactory.getLogger(HttpTrackingEngine.class);
 
+    @Resource(name = "trackingEventsDao")
+    protected TrackingEventsDao trackingEventsDao = null;
     @Resource(name = "com.thistech.spotlink.HttpClient")
     protected HttpClient httpClient = null;
+    protected Properties properties = null;
 
     public HttpTrackingEngine(Properties properties) {
-        super(properties);
+        this.properties = properties;
     }
 
     @Override
@@ -56,6 +61,16 @@ public final class HttpTrackingEngine extends AbstractCachingTrackingEngine impl
         return UUID.randomUUID().toString();
     }
 
+    @Override
+    public void saveTrackingEvents(TrackingEvents trackingEvents) {
+        this.trackingEventsDao.save(trackingEvents);
+    }
+
+    @Override
+    public TrackingEvents getTrackingEvents(String trackingId) {
+        return this.trackingEventsDao.get(trackingId);
+    }
+
     private void trackEvent(PlacementStatusEventType event) {
         if (event.getSpot() != null
                 && event.getSpot().getContent() != null
@@ -64,7 +79,7 @@ public final class HttpTrackingEngine extends AbstractCachingTrackingEngine impl
             String trackingId = event.getSpot().getContent().getTracking().getValue();
             String eventType = event.getType();
 
-            TrackingEvents tracking = this.getTrackingEvents(trackingId);
+            TrackingEvents tracking = (TrackingEvents) this.getTrackingEvents(trackingId);
             if (tracking == null) {
                 log.error(String.format("No Tracking data for %s", trackingId));
                 return;

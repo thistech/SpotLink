@@ -19,8 +19,8 @@ package com.thistech.spotlink.engine;
 
 import com.thistech.spotlink.AbstractSpotlinkTest;
 import com.thistech.spotlink.TestHelper;
-import com.thistech.spotlink.model.TrackingEvents;
-import com.thistech.spotlink.persistence.ITrackingEventsDao;
+import com.thistech.spotlink.model.BasicTrackingEvents;
+import com.thistech.spotlink.persistence.TrackingEventsDao;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -41,7 +41,7 @@ public class TrackingEngineTest extends AbstractSpotlinkTest {
     @InjectMocks
     private TrackingEngine trackingEngine = null;
     @Mock
-    private ITrackingEventsDao mockTrackingEventsDao = null;
+    private TrackingEventsDao mockTrackingEventsDao = null;
     @Mock
     private HttpClient mockHttpClient = mock(DefaultHttpClient.class, RETURNS_DEEP_STUBS);
     @Mock
@@ -93,7 +93,7 @@ public class TrackingEngineTest extends AbstractSpotlinkTest {
         this.trackingEngine = new HttpTrackingEngine(this.properties);
         initMocks(this);
 
-        when(this.mockTrackingEventsDao.get(anyString())).thenReturn(new TrackingEvents());
+        when(this.mockTrackingEventsDao.get(anyString())).thenReturn(new BasicTrackingEvents());
         when(this.mockHttpClient.execute(any(HttpUriRequest.class)))
                 .thenReturn(this.prepareResponse(HttpStatus.SC_BAD_REQUEST, "BadRequest"));
 

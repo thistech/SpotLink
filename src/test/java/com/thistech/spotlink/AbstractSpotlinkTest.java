@@ -17,9 +17,6 @@ package com.thistech.spotlink;
  * All Rights Reserved.
  */
 
-import com.thistech.spotlink.model.Ad;
-import com.thistech.spotlink.model.MediaFile;
-import com.thistech.spotlink.model.TrackingEvents;
 import org.apache.http.HttpResponse;
 import org.apache.http.ProtocolVersion;
 import org.apache.http.entity.StringEntity;
@@ -36,8 +33,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.transform.stream.StreamSource;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
 
 @ContextConfiguration
 public class AbstractSpotlinkTest extends AbstractTestNGSpringContextTests {

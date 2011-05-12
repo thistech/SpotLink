@@ -95,7 +95,11 @@
         </property>
     </bean>
 
-    <bean id="com.thistech.spotlink.TrackingEventsDao" class="com.thistech.spotlink.persistence.TrackingEventsDao" lazy-init="true"/>
+    <bean id="trackingEventsDaoFactory" class="com.thistech.spotlink.persistence.TrackingEventsDaoFactory"/>
+
+    <bean id="trackingEventsDao" factory-bean="trackingEventsDaoFactory" factory-method="newInstance">
+        <constructor-arg type="java.util.Properties" ref="com.thistech.spotlink.Properties"/>
+    </bean>
 
     <bean id="trackingEngineFactory" class="com.thistech.spotlink.engine.TrackingEngineFactory"/>
 

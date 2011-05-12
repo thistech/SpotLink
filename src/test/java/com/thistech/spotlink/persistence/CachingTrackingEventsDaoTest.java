@@ -18,6 +18,7 @@ package com.thistech.spotlink.persistence;
  */
 
 import com.thistech.spotlink.model.TrackingEvents;
+import com.thistech.spotlink.model.BasicTrackingEvents;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
@@ -26,10 +27,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 @ContextConfiguration
-public class TrackingEventsDaoTest extends AbstractTestNGSpringContextTests {
+public class CachingTrackingEventsDaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired @Qualifier("com.thistech.spotlink.TrackingEventsDao")
-    private TrackingEventsDao trackingEventsDao = null;
+    private CachingTrackingEventsDao trackingEventsDao = null;
 
     @Test
     public void testSave() {
@@ -69,7 +70,7 @@ public class TrackingEventsDaoTest extends AbstractTestNGSpringContextTests {
     }
 
     private TrackingEvents getTrackingEvents() {
-        TrackingEvents events = new TrackingEvents();
+        TrackingEvents events = new BasicTrackingEvents();
         events.setId(String.format("RandomTrackingEvents_%s", System.currentTimeMillis()));
 
         for (int i = 0; i < 2; i++) {

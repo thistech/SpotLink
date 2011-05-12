@@ -17,24 +17,27 @@ package com.thistech.spotlink.persistence;
  * All Rights Reserved.
  */
 
-import java.io.Serializable;
 import com.thistech.spotlink.model.TrackingEvents;
-import net.sf.ehcache.Element;
-import org.apache.commons.lang.StringUtils;
 
-public class TrackingEventsDao extends AbstractCacheDao<TrackingEvents> implements ITrackingEventsDao {
+public interface TrackingEventsDao {
 
-    public TrackingEventsDao() {
-        super("TrackingEvents");
-    }
+    /**
+     * Delete a tracking event
+     * @param tracking The TrackingEvent to delete
+     */
+    void delete(TrackingEvents tracking);
 
-    public TrackingEvents get(String id) {
-        Element element = getCache().get(id);
-        return element == null ? null : (TrackingEvents) element.getValue();
-    }
+    /**
+     * Get a TrackingEvent by id and type
+     * @param id The id
+     * @return the Tracking
+     */
+    TrackingEvents get(String id);
 
-    @Override
-    protected Serializable getKey(TrackingEvents object) {
-        return StringUtils.upperCase(object.getId());
-    }
+    /**
+     * Store a TrackingEvent.
+     * @param tracking The TrackingEvent to store
+     */
+    void save(TrackingEvents tracking);
+
 }

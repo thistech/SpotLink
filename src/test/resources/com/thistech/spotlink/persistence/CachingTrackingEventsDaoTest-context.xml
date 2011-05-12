@@ -24,6 +24,6 @@
         <property name="configLocation" value="classpath:ehcache.xml"/>
     </bean>
 
-    <bean id="com.thistech.spotlink.TrackingEventsDao" class="com.thistech.spotlink.persistence.TrackingEventsDao"/>
+    <bean id="com.thistech.spotlink.TrackingEventsDao" class="com.thistech.spotlink.persistence.CachingTrackingEventsDao"/>
 
 </beans>

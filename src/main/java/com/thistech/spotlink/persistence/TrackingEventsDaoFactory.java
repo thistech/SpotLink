@@ -15,25 +15,30 @@
  * All Rights Reserved.
  */
 
-package com.thistech.spotlink.model;
+package com.thistech.spotlink.persistence;
 
-import java.io.Serializable;
-import java.util.Map;
+import com.thistech.spotlink.SpotLinkException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Properties;
 
 /**
  * @author <a href="mailto:matt@thistech.com">Matt Narrell</a>
  *         Created on: 5/12/11
  */
-public interface TrackingEvents extends Serializable {
-    String getId();
-
-    TrackingEvents setId(String value);
-
-    Map<String, String> getEventUrls();
-
-    TrackingEvents setEventUrls(Map<String, String> value);
-
-    TrackingEvents addEventUrl(String event, String url);
-
-    String getEventUrl(String event);
+public class TrackingEventsDaoFactory {
+    private static final Logger log = LoggerFactory.getLogger(TrackingEventsDaoFactory.class);
+    public TrackingEventsDao newInstance(Properties properties) {
+        String className = properties.getProperty("trackingEventsDao");
+        try {
+            @SuppressWarnings("unchecked")
+            Class<TrackingEventsDao> clazz = (Class<TrackingEventsDao>) Class.forName(className);
+            return clazz.newInstance();
+        }
+        catch (Exception e) {
+            log.error(String.format("Could not construct instance of %s", className));
+            throw new SpotLinkException(e);
+        }
+    }
 }

@@ -22,8 +22,9 @@ import com.thistech.schemasupport.scte130.builder.adm.PlacementDecisionBuilder;
 import com.thistech.schemasupport.scte130.builder.core.ContentBuilder;
 import com.thistech.spotlink.SpotLinkException;
 import com.thistech.spotlink.model.Ad;
-import com.thistech.spotlink.model.MediaFile;
 import com.thistech.spotlink.model.TrackingEvents;
+import com.thistech.spotlink.model.MediaFile;
+import com.thistech.spotlink.persistence.TrackingEventsDao;
 import com.thistech.spotlink.util.ListUtil;
 import com.thistech.spotlink.util.XmlUtil;
 import org.apache.commons.lang.StringUtils;
@@ -50,8 +51,8 @@ import java.util.Properties;
 public abstract class AbstractPlacementDecisionEngine implements PlacementDecisionEngine {
     private static final Logger log = LoggerFactory.getLogger(AbstractPlacementDecisionEngine.class);
 
-    @Resource(name = "trackingEngine")
-    protected TrackingEngine trackingEngine = null;
+    @Resource(name = "trackingEventsDao")
+    protected TrackingEventsDao trackingEventsDao = null;
     @Resource(name = "com.thistech.spotlink.JAXBContext")
     private JAXBContext jaxbContext;
     protected Properties properties;
@@ -193,11 +194,11 @@ public abstract class AbstractPlacementDecisionEngine implements PlacementDecisi
     }
 
     /**
-     * Save a TrackingEvents
-     * @param trackingEvents The TrackingEvents
+     * Save a BasicTrackingEvents
+     * @param trackingEvents The BasicTrackingEvents
      */
     protected void saveTrackingEvents(TrackingEvents trackingEvents) {
-        this.trackingEngine.saveTrackingEvents(trackingEvents);
+        this.trackingEventsDao.save(trackingEvents);
     }
 
     protected JAXBContext getJaxbContext() {

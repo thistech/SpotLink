@@ -25,7 +25,7 @@
                   overflowToDisk="true">
     </defaultCache>
 
-    <!-- TrackingEvents expire after 48 hours -->
+    <!-- BasicTrackingEvents expire after 48 hours -->
     <cache name="TrackingEvents"
            maxElementsInMemory="1000000"
            eternal="false"

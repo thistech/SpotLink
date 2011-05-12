@@ -17,6 +17,7 @@
 
 package com.thistech.spotlink.engine;
 
+import com.thistech.spotlink.model.TrackingEvents;
 import org.scte.schemas._130_3._2008a.adm.PlacementStatusNotificationType;
 
 import java.io.Serializable;
@@ -25,7 +26,7 @@ public interface TrackingEngine {
 
     String track(PlacementStatusNotificationType psn);
 
-    void saveTrackingEvents(Serializable trackingEvents);
+    void saveTrackingEvents(TrackingEvents trackingEvents);
 
-    Serializable getTrackingEvents(String trackingId);
+    TrackingEvents getTrackingEvents(String trackingId);
 }

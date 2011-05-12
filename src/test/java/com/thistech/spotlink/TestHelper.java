@@ -19,8 +19,9 @@ package com.thistech.spotlink;
 
 import com.thistech.schemasupport.scte130.builder.core.AssetRefBuilder;
 import com.thistech.spotlink.model.Ad;
-import com.thistech.spotlink.model.MediaFile;
+import com.thistech.spotlink.model.BasicTrackingEvents;
 import com.thistech.spotlink.model.TrackingEvents;
+import com.thistech.spotlink.model.MediaFile;
 import org.scte.schemas._130_2._2008a.core.AssetRefType;
 import org.scte.schemas._130_2._2008a.core.ContentType;
 import org.scte.schemas._130_2._2008a.core.TrackingType;
@@ -47,7 +48,7 @@ public class TestHelper {
     }
 
     public static TrackingEvents buildTrackingEvents() {
-        TrackingEvents events = new TrackingEvents();
+        TrackingEvents events = new BasicTrackingEvents();
         events.setId("be1bcf17-cc88-42fe-87d0-915edbec8b7d");
         events.addEventUrl("endPlacement", "http://www.url.com/");
 

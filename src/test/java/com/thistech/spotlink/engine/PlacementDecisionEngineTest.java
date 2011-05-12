@@ -20,9 +20,9 @@ package com.thistech.spotlink.engine;
 import com.thistech.schemasupport.scte130.util.ObjectFactoryProxy;
 import com.thistech.spotlink.AbstractSpotlinkTest;
 import com.thistech.spotlink.SpotLinkException;
-import com.thistech.spotlink.TestHelper;
 import com.thistech.spotlink.model.BasicRequestContext;
 import com.thistech.spotlink.model.RequestContext;
+import com.thistech.spotlink.persistence.TrackingEventsDao;
 import org.apache.http.client.methods.HttpPost;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -48,7 +48,7 @@ public class PlacementDecisionEngineTest extends AbstractSpotlinkTest {
     @InjectMocks
     private TestableDecisionEngine placementDecisionEngine = null;
     @Mock
-    private TrackingEngine mockTrackingService = null;
+    private TrackingEventsDao trackingEventsDao = null;
     @Mock
     private JAXBContext mockJaxbContext = null;
     @Mock
@@ -64,10 +64,6 @@ public class PlacementDecisionEngineTest extends AbstractSpotlinkTest {
 
     @Test()
     public void testGetPlacementDecisions() {
-        for (int i = 0; i < TestHelper.COLLECTION_SIZE; i++) {
-            this.mockTrackingService.saveTrackingEvents(null);
-        }
-
         PlacementRequestType placementRequest =
                 (PlacementRequestType) this.unmarshal(this.getClass(), "/sample_placement_request.xml");
         RequestContext requestContext = new BasicRequestContext()
