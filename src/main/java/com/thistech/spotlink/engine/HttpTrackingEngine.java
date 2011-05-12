@@ -32,7 +32,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -61,16 +60,6 @@ public class HttpTrackingEngine implements TrackingEngine {
         return UUID.randomUUID().toString();
     }
 
-    @Override
-    public void saveTrackingEvents(TrackingEvents trackingEvents) {
-        this.trackingEventsDao.save(trackingEvents);
-    }
-
-    @Override
-    public TrackingEvents getTrackingEvents(String trackingId) {
-        return this.trackingEventsDao.get(trackingId);
-    }
-
     private void trackEvent(PlacementStatusEventType event) {
         if (event.getSpot() != null
                 && event.getSpot().getContent() != null
@@ -79,7 +68,7 @@ public class HttpTrackingEngine implements TrackingEngine {
             String trackingId = event.getSpot().getContent().getTracking().getValue();
             String eventType = event.getType();
 
-            TrackingEvents tracking = (TrackingEvents) this.getTrackingEvents(trackingId);
+            TrackingEvents tracking = this.trackingEventsDao.get(trackingId);
             if (tracking == null) {
                 log.error(String.format("No Tracking data for %s", trackingId));
                 return;
