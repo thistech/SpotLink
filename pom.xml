@@ -71,7 +71,7 @@
     <properties>
         <cxf.version>2.3.2</cxf.version>
         <ehcache.version>2.3.0</ehcache.version>
-        <schemasupport.version>1.13</schemasupport.version>
+        <schemasupport.version>1.19</schemasupport.version>
         <spring.version>3.0.5.RELEASE</spring.version>
     </properties>
 

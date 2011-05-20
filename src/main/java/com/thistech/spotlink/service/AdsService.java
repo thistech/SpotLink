@@ -80,7 +80,7 @@ public class AdsService implements ADS {
                                                                                                        requestContext);
 
         PlacementResponseBuilder placementResponseBuilder = (PlacementResponseBuilder) new PlacementResponseBuilder(
-                placementRequest)
+                placementRequest, true)
                 .withMessageId(getMessageId())
                 .withIdentity(identity)
                 .withSystem(system)
