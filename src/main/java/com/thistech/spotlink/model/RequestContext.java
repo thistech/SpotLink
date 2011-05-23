@@ -17,6 +17,7 @@ package com.thistech.spotlink.model;
  * All Rights Reserved.
  */
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ import java.util.Map;
  * @author <a href="mailto:matt@thistech.com">Matt Narrell</a>
  *         Created on: 5/10/11
  */
-public interface RequestContext {
+public interface RequestContext extends Serializable{
 
     /**
      * @return The message id of the originating message.
