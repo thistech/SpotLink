@@ -40,6 +40,10 @@
             <map>
                 <entry key="admClientFactory" value-ref="com.thistech.spotlink.AdmClientFactory"/>
                 <entry key="admEndpoints" value="${admEndpoints}"/>
+                <entry key="identity" value="${adsIdentity}"/>
+                <entry key="system" value="${adsSystem}"/>
+                <entry key="version" value="${adsVersion}"/>
+                <entry key="publicEndpoint" value="${publicEndpoint}"/>
             </map>
         </property>
     </bean>

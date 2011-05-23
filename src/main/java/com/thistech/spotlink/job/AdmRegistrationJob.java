@@ -24,6 +24,7 @@ import com.thistech.spotlink.client.AdmClientFactory;
 import org.apache.commons.lang.StringUtils;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.scte.schemas._130_2._2008a.core.AddressType;
 import org.scte.schemas._130_2._2008a.core.CalloutType;
 import org.scte.schemas._130_3._2008a.adm.*;
 import org.slf4j.Logger;
@@ -72,7 +73,11 @@ public class AdmRegistrationJob extends QuartzJobBean {
             for (CalloutType callout : response.getCallout()) {
                 if (StringUtils.isBlank(callout.getMessage()) || StringUtils.equalsIgnoreCase(callout.getMessage(), method)) {
                     if (callout.getAddress().size() > 0) {
-                        return callout.getAddress().get(0).getValue();
+                        for(AddressType addressType : callout.getAddress()) {
+                            if (addressType.getType().matches("(?i)SOAP.*")) {
+                                return addressType.getValue();
+                            }
+                        }
                     }
                 }
             }
