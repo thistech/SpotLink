@@ -76,20 +76,23 @@ public class HttpTrackingEngine implements TrackingEngine {
 
             String url = tracking.getEventUrl(eventType);
             if (StringUtils.isEmpty(url)) {
-                log.info("Tacking %s does not contain a tracking url for Event '%s'", trackingId, eventType);
+                log.info("Tracking %s does not contain a tracking url for Event '%s'", trackingId, eventType);
                 return;
             }
 
             HttpGet get = new HttpGet(url);
             try {
-                HttpResponse response = httpClient.execute(get);
-                if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-                    log.error(String.format("HTTP GET failed on %s with HttpStatus %s", url,
-                            response.getStatusLine().getStatusCode()));
+                log.info(String.format("Executing ClickTracking GET on: %s", get.getURI()));
+                HttpResponse response = this.httpClient.execute(get);
+                int statusCode = response.getStatusLine().getStatusCode();
+                log.info(String.format("StatusCode %s for %s", statusCode, get.getURI()));
+                if (HttpStatus.SC_OK != statusCode) {
+                    log.error(String.format("HTTP GET failed on %s with HttpStatus %s", url, statusCode));
                 }
                 HttpEntity entity = response.getEntity();
                 entity.consumeContent();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 log.error(String.format("HTTP GET on %s failed. Exception:", url), e);
             }
         }
