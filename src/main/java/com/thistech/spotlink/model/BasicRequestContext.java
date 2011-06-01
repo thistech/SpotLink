@@ -33,6 +33,7 @@ public class BasicRequestContext implements RequestContext {
     private List<TrackingEvents> trackingData = new LinkedList<TrackingEvents>();
     private String originatorMessageId = null;
     private String originatorIdentity = null;
+    private String originatorSystem = null;
 
     /**
      * @see com.thistech.spotlink.model.RequestContext#getOriginatorMessageId()
@@ -134,5 +135,16 @@ public class BasicRequestContext implements RequestContext {
     @Override
     public Map<String, Object> getAttributes() {
         return this.attributes;
+    }
+
+    @Override
+    public String getOriginatorSystem() {
+        return originatorSystem;
+    }
+
+    @Override
+    public RequestContext setOriginatorSystem(String originatorSystem) {
+        this.originatorSystem = originatorSystem;
+        return this;
     }
 }

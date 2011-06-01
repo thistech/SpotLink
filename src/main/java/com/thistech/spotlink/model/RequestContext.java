@@ -40,6 +40,10 @@ public interface RequestContext extends Serializable{
      */
     String getOriginatorIdentity();
 
+    String getOriginatorSystem();
+
+    RequestContext setOriginatorSystem(String originatorSystem);
+
     /**
      * @return The {@link Date} of the incoming PlacementRequest.
      */
