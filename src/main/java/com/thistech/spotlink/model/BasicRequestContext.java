@@ -34,6 +34,9 @@ public class BasicRequestContext implements RequestContext {
     private String originatorMessageId = null;
     private String originatorIdentity = null;
     private String originatorSystem = null;
+    private List<String> preRolls = new LinkedList<String>();
+    private List<String> midRolls = new LinkedList<String>();
+    private List<String> postRolls = new LinkedList<String>();
 
     /**
      * @see com.thistech.spotlink.model.RequestContext#getOriginatorMessageId()
@@ -145,6 +148,57 @@ public class BasicRequestContext implements RequestContext {
     @Override
     public RequestContext setOriginatorSystem(String originatorSystem) {
         this.originatorSystem = originatorSystem;
+        return this;
+    }
+
+    @Override
+    public List<String> getPreRolls() {
+        return this.preRolls;
+    }
+
+    @Override
+    public List<String> getMidRolls() {
+        return this.midRolls;
+    }
+
+    @Override
+    public List<String> getPostRolls() {
+        return this.postRolls;
+    }
+
+    @Override
+    public RequestContext setPreRolls(List<String> preRolls) {
+        this.preRolls = preRolls;
+        return this;
+    }
+
+    @Override
+    public RequestContext setMidRolls(List<String> midRolls) {
+        this.midRolls = midRolls;
+        return this;
+    }
+
+    @Override
+    public RequestContext setPostRolls(List<String> postRolls) {
+        this.postRolls = postRolls;
+        return this;
+    }
+
+    @Override
+    public RequestContext addPreRoll(String url) {
+        this.preRolls.add(url);
+        return this;
+    }
+
+    @Override
+    public RequestContext addMidRoll(String url) {
+        this.midRolls.add(url);
+        return this;
+    }
+
+    @Override
+    public RequestContext addPostRoll(String url) {
+        this.postRolls.add(url);
         return this;
     }
 }

@@ -112,4 +112,16 @@ public interface RequestContext extends Serializable{
      * @return - This {@code RequestContext} implementation.
      */
     RequestContext setOriginatorIdentity(String originatorIdentity);
+
+    List<String> getPreRolls();
+    List<String> getMidRolls();
+    List<String> getPostRolls();
+
+    RequestContext setPreRolls(List<String> preRolls);
+    RequestContext setMidRolls(List<String> midRolls);
+    RequestContext setPostRolls(List<String> postRolls);
+
+    RequestContext addPreRoll(String url);
+    RequestContext addMidRoll(String url);
+    RequestContext addPostRoll(String url);
 }
