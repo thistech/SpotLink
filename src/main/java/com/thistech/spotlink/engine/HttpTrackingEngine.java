@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -81,6 +82,7 @@ public class HttpTrackingEngine implements TrackingEngine {
             }
 
             HttpGet get = new HttpGet(url);
+            HttpEntity entity = null;
             try {
                 log.info(String.format("Executing ClickTracking GET on: %s", get.getURI()));
                 HttpResponse response = this.httpClient.execute(get);
@@ -89,11 +91,20 @@ public class HttpTrackingEngine implements TrackingEngine {
                 if (HttpStatus.SC_OK != statusCode) {
                     log.error(String.format("HTTP GET failed on %s with HttpStatus %s", url, statusCode));
                 }
-                HttpEntity entity = response.getEntity();
-                entity.consumeContent();
+                entity = response.getEntity();
             }
             catch (Exception e) {
                 log.error(String.format("HTTP GET on %s failed. Exception:", url), e);
+            }
+            finally {
+                try {
+                    if (entity != null) {
+                        entity.consumeContent();
+                    }
+                }
+                catch (IOException e) {
+                    // do nothing;
+                }
             }
         }
     }

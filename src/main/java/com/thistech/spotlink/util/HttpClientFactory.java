@@ -19,27 +19,27 @@ package com.thistech.spotlink.util;
 
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
+import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.params.ConnManagerParams;
 import org.apache.http.conn.params.ConnPerRoute;
 import org.apache.http.conn.routing.HttpRoute;
+import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.util.Properties;
 
 public class HttpClientFactory {
-    private static final Logger log = LoggerFactory.getLogger(HttpClientFactory.class);
 
     @Resource(name = "com.thistech.spotlink.Properties")
     private Properties properties = null;
 
     public HttpClient newInstance() {
-        HttpClient client = this.instantiateClass();
+        HttpClient client = new DefaultHttpClient();
         HttpParams httpParams = client.getParams();
         HttpProtocolParams.setVersion(httpParams, HttpVersion.HTTP_1_1);
 
@@ -47,61 +47,26 @@ public class HttpClientFactory {
             int timeout = Integer.parseInt(this.properties.getProperty("httpclient.timeout"));
             HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
             HttpConnectionParams.setSoTimeout(httpParams, timeout);
-        } // defaults to implementation
+        }
 
         ConnManagerParams.setMaxConnectionsPerRoute(httpParams, new ConnPerRoute() {
             public int getMaxForRoute(HttpRoute route) {
-                if (properties.containsKey("httpclient.conn-per-route")) {
-                    return Integer.parseInt(properties.getProperty("httpclient.conn-per-route"));
-                } else {
-                    return 5;
-                }
+                return Integer.parseInt(properties.getProperty("httpclient.conn-per-route", "5"));
             }
         });
 
-        int totalConnections = 100;
-        if (this.properties.containsKey("httpclient.total-connections")) {
-            totalConnections = Integer.parseInt(this.properties.getProperty("httpclient.total-connections"));
-        }
+        int totalConnections = Integer.parseInt(this.properties.getProperty("httpclient.total-connections", "100"));
         ConnManagerParams.setMaxTotalConnections(httpParams, totalConnections);
 
-        String userAgent = "Mozilla/5.0";
-        if (this.properties.containsKey("httpclient.user-agent")) {
-            userAgent = this.properties.getProperty("httpclient.user-agent");
-        }
+        String userAgent = this.properties.getProperty("httpclient.user-agent", "Mozilla/5.0");
         HttpProtocolParams.setUserAgent(httpParams, userAgent);
 
-        String charset = "UTF-8";
-        if (this.properties.containsKey("httpclient.content-charset")) {
-            charset = this.properties.getProperty("httpclient.content-charset");
-        }
+        String charset = this.properties.getProperty("httpclient.content-charset", "UTF-8");
         HttpProtocolParams.setContentCharset(httpParams, charset);
 
-        return client;
-    }
-
-    private HttpClient instantiateClass() {
-        HttpClient client;
-        if (this.properties.containsKey("httpclient.classname")) {
-            try {
-                @SuppressWarnings("unchecked")
-                Class<HttpClient> clazz =
-                        (Class<HttpClient>) Class.forName(this.properties.getProperty("httpclient.classname"));
-                Class[] classParams = null;
-                Object[] objectParams = null;
-                client = clazz.getConstructor(classParams).newInstance(objectParams);
-            } catch (Exception e) {
-                String warnMsg = String.format("Unable to create HttpClient from %s: %s.  " +
-                        "Defaulting to org.apache.http.impl.client.DefaultHttpClient",
-                        this.properties.getProperty("httpclient.classname"),
-                        e.getLocalizedMessage());
-                log.warn(warnMsg, e);
-                client = new DefaultHttpClient();
-            }
-
-        } else {
-            client = new DefaultHttpClient();
-        }
+        ClientConnectionManager mgr = client.getConnectionManager();
+        SchemeRegistry schemeRegistry = mgr.getSchemeRegistry();
+        client = new DefaultHttpClient(new ThreadSafeClientConnManager(httpParams, schemeRegistry), httpParams);
         return client;
     }
 }

@@ -18,11 +18,14 @@ package com.thistech.spotlink.util;
  */
 
 import com.thistech.spotlink.AbstractSpotlinkTest;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.fail;
 
 
 @ContextConfiguration
@@ -35,5 +38,22 @@ public class HttpClientFactoryTest extends AbstractSpotlinkTest {
 
         HttpClient client = httpClientFactory.newInstance();
         assertNotNull(client);
+    }
+
+    @Test
+    public void testThreadedConnectionManager() throws Exception {
+        HttpClientFactory httpClientFactory =
+                (HttpClientFactory) this.applicationContext.getBean("httpClientFactory");
+        final HttpClient httpClient = httpClientFactory.newInstance();
+        for (int i = 0; i < 5; i++) {
+            try {
+                HttpResponse response = httpClient.execute(new HttpGet("http://www.thistech.com"));
+                response.getEntity().consumeContent();
+            }
+            catch (Exception e) {
+                fail(e.getMessage(), e);
+            }
+        }
+        System.out.println("done");
     }
 }
